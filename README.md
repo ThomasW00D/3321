@@ -3,4 +3,4 @@ Email Client:
 Thomas Wood,
 Lewey Alban,
 Lincoln Taylor,
-Zachary Beck,
+Zachary Beck
