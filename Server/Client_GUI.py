@@ -103,7 +103,7 @@ class Ui_Form(object):
                     self.client_socket = self.client_socket.socket(self.client_socket.AF_INET, self.client_socket.SOCK_STREAM)
 
                     try:
-                        self.client_socket.connect((Ui_Form.host_ip, Ui_Form.port))
+                        self.client_socket.connect((Ui_Form.host_ip, int(Ui_Form.port)))
                         break
                     except:
                         self.logTxt.insertPlainText("Host IP number or port number is incorrect. Please recheck your information "
