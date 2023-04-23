@@ -48,6 +48,7 @@ class Ui_Form(object):
         self.msgTxt.setObjectName("msgTxt")
         self.logTxt = QtWidgets.QTextEdit(Form)
         self.logTxt.setEnabled(False)
+        self.logTxt.setReadOnly(True)
         self.logTxt.setGeometry(QtCore.QRect(820, 280, 751, 711))
         self.logTxt.setObjectName("logTxt")
         self.sendBtn = QtWidgets.QPushButton(Form)
