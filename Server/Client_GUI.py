@@ -77,6 +77,7 @@ class Ui_Form(object):
         self.connectBtn.clicked.connect(lambda: self.connect_setup())
         self.nicknameBtn.clicked.connect(lambda: self.nickname_setup(self.client_socket))
         self.sendBtn.clicked.connect(lambda: self.write(Ui_Form.nickname, self.client_socket))
+        self.closeBtn.clicked.connect(lambda: self.close_client(self.client_socket))
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -94,17 +95,24 @@ class Ui_Form(object):
     def connect_setup(self):
         self.logTxt.setEnabled(True)
         Ui_Form.host_ip = self.hostTxt.text()
-        Ui_Form.port = int(self.portTxt.text())
-        self.client_socket = socket
-        self.client_socket = self.client_socket.socket(self.client_socket.AF_INET, self.client_socket.SOCK_STREAM)
+        Ui_Form.port = self.portTxt.text()
+        while True:
+            if Ui_Form.port.isdigit():
+                if 10000 <= int(Ui_Form.port) <= 65535:
+                    self.client_socket = socket
+                    self.client_socket = self.client_socket.socket(self.client_socket.AF_INET, self.client_socket.SOCK_STREAM)
 
-        try:
-            self.client_socket.connect((Ui_Form.host_ip, Ui_Form.port))
-        except:
-            self.logTxt.insertPlainText("Host IP number or port number is incorrect. Please recheck your information "
-                                        "and try again.\n")
-            self.client_socket.close()
-            return
+                    try:
+                        self.client_socket.connect((Ui_Form.host_ip, Ui_Form.port))
+                        break
+                    except:
+                        self.logTxt.insertPlainText("Host IP number or port number is incorrect. Please recheck your information "
+                                                    "and try again.\nIf problem persists, you can try creating a server and inviting friends!\n")
+                        self.client_socket.close()
+                        return
+            else:
+                self.logTxt.insertPlainText("Host IP or port is incorrect. Port must be between 10000 and 65535.\n")
+                return
 
         self.connectBtn.setEnabled(False)
         self.hostTxt.setEnabled(False)
@@ -113,6 +121,7 @@ class Ui_Form(object):
         self.nicknameBtn.setEnabled(True)
         self.logTxt.insertPlainText("Socket succeeded.\n")
         return
+
 
     def nickname_setup(self, client_socket):
         Ui_Form.nickname = self.nicknameTxt.text()
@@ -138,6 +147,17 @@ class Ui_Form(object):
         if message:
             client_socket.sendall(message.encode())
             self.msgTxt.clear()
+            
+    def close_client(self, client_socket):
+        client_socket.close()
+        self.logTxt.setEnabled(False)
+        self.msgTxt.setEnabled(False)
+        self.closeBtn.setEnabled(False)
+        self.sendBtn.setEnabled(False)
+        self.connectBtn.setEnabled(True)
+        self.hostTxt.setEnabled(True)
+        self.portTxt.setEnabled(True)
+        return
 
     def client(self, nickname, client_socket):
         def receive():
@@ -150,7 +170,7 @@ class Ui_Form(object):
                         self.logTxt.insertPlainText(msg + "\n")
                 except:
                     self.logTxt.insertPlainText("Error \n")
-                    client_socket.close()
+                    self.close_client(client_socket)
                     break
 
         receive_thread = threading.Thread(target=receive)
