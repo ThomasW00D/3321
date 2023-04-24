@@ -18,7 +18,7 @@ class MainGUI( QMainWindow ):
 
         if send == True:
             self.gmail.sendEmail(self.gmail.address, recipient, subject, msg_plain=body, attachments=filePaths)
-            self.refreshClicked()
+            self.refreshClicked(True)
         else:
             self.gmail.createDraft(self.gmail.address, recipient, subject, msg_plain=body, attachments=filePaths)
 
@@ -47,26 +47,26 @@ class MainGUI( QMainWindow ):
                     self.firstInboxQuery = True
                     if self.currInbox == 'SPAM':
                         self.firstSpamQuery = True
-                        self.spamClicked()
+                        self.spamClicked(self.firstSpamQuery)
                     else:
                         self.firstTrashQuery = True
-                        self.trashClicked()
+                        self.trashClicked(self.firstTrashQuery)
                 elif clickedSpam:
                     self.firstSpamQuery = True
                     if self.currInbox == 'INBOX':
                         self.firstInboxQuery = True
-                        self.inboxClicked()
+                        self.inboxClicked(self.firstInboxQuery)
                     else:
                         self.firstTrashQuery = True
-                        self.trashClicked()
+                        self.trashClicked(self.firstTrashQuery)
                 elif clickedTrash:
                     self.firstTrashQuery = True
                     if self.currInbox == 'INBOX':
                         self.firstInboxQuery = True
-                        self.inboxClicked()
+                        self.inboxClicked(self.firstInboxQuery)
                     else:
                         self.firstSpamQuery = True
-                        self.spamClicked()
+                        self.spamClicked(self.firstSpamQuery)
                     
             else:
                 dlg = ViewMessageHTML(body, sender, recipient, subject, attachments, self.gmail, self.currInbox, message['id'], mainWindow)
@@ -75,26 +75,26 @@ class MainGUI( QMainWindow ):
                     self.firstInboxQuery = True
                     if self.currInbox == 'SPAM':
                         self.firstSpamQuery = True
-                        self.spamClicked()
+                        self.spamClicked(self.firstSpamQuery)
                     else:
                         self.firstTrashQuery = True
-                        self.trashClicked()
+                        self.trashClicked(self.firstTrashQuery)
                 elif clickedSpam:
                     self.firstSpamQuery = True
                     if self.currInbox == 'INBOX':
                         self.firstInboxQuery = True
-                        self.inboxClicked()
+                        self.inboxClicked(self.firstInboxQuery)
                     else:
                         self.firstTrashQuery = True
-                        self.trashClicked()
+                        self.trashClicked(self.firstTrashQuery)
                 elif clickedTrash:
                     self.firstTrashQuery = True
                     if self.currInbox == 'INBOX':
                         self.firstInboxQuery = True
-                        self.inboxClicked()
+                        self.inboxClicked(self.firstInboxQuery)
                     else:
                         self.firstSpamQuery = True
-                        self.spamClicked()
+                        self.spamClicked(self.firstSpamQuery)
         
         else:
             message = self.gmail.getEmail(self.currInbox, self.emailList.currentRow())
@@ -132,26 +132,26 @@ class MainGUI( QMainWindow ):
                 self.firstSentQuery = True
                 self.refreshClicked()
 
-    def refreshClicked(self):
+    def refreshClicked(self, fullReload):
         if self.currInbox == 'INBOX':
-            self.inboxClicked()
+            self.inboxClicked(fullReload)
         elif self.currInbox == 'SENT':
-            self.sentClicked()
+            self.sentClicked(fullReload)
         elif self.currInbox == 'DRAFT':
-            self.draftsClicked()
+            self.draftsClicked(fullReload)
         elif self.currInbox == 'SPAM':
-            self.spamClicked()
+            self.spamClicked(fullReload)
         else:
-            self.trashClicked()
+            self.trashClicked(fullReload)
 
-    def inboxClicked(self):
+    def inboxClicked(self, fullReload):
         self.currInbox = 'INBOX'
         self.enableAllButtons()
         self.inboxButton.setEnabled(False)
         self.emailList.clear()
         inbox = []
 
-        if self.firstInboxQuery:
+        if fullReload:
             inbox = self.gmail.getInbox()
             inboxDisplay = self.gmail.getSubjectAndSender(inbox)
             self.firstInboxQuery = False
@@ -165,14 +165,14 @@ class MainGUI( QMainWindow ):
             self.emailList.addItem(item)
             
 
-    def sentClicked(self):
+    def sentClicked(self, fullReload):
         self.currInbox = 'SENT'
         self.enableAllButtons()
         self.sentButton.setEnabled(False)
         self.emailList.clear()
         sent = []
 
-        if self.firstSentQuery:
+        if fullReload:
             sent = self.gmail.getSent()
             sentDisplay = self.gmail.getSubjectAndRecipient(sent)
             self.firstSentQuery = False
@@ -185,14 +185,14 @@ class MainGUI( QMainWindow ):
             item.setSizeHint(QSize(0, 50))
             self.emailList.addItem(item)
 
-    def draftsClicked(self):
+    def draftsClicked(self, fullReload):
         self.currInbox = 'DRAFT'
         self.enableAllButtons()
         self.draftsButton.setEnabled(False)
         self.emailList.clear()
         drafts = []
 
-        if self.firstDraftsQuery:
+        if fullReload:
             drafts = self.gmail.getDrafts()
             draftsDisplay = self.gmail.getSubjectAndRecipient(drafts)
             self.firstDraftsQuery = False
@@ -205,14 +205,14 @@ class MainGUI( QMainWindow ):
             item.setSizeHint(QSize(0, 50))
             self.emailList.addItem(item)
 
-    def spamClicked(self):
+    def spamClicked(self, fullReload):
         self.currInbox = 'SPAM'
         self.enableAllButtons()
         self.spamButton.setEnabled(False)
         self.emailList.clear()
         spam = []
 
-        if self.firstSpamQuery:
+        if fullReload:
             spam = self.gmail.getSpam()
             spamDisplay = self.gmail.getSubjectAndSender(spam)
             self.firstSpamQuery = False
@@ -225,14 +225,14 @@ class MainGUI( QMainWindow ):
             item.setSizeHint(QSize(0, 50))
             self.emailList.addItem(item)
 
-    def trashClicked(self):
+    def trashClicked(self, fullReload):
         self.currInbox = 'TRASH'
         self.enableAllButtons()
         self.trashButton.setEnabled(False)
         self.emailList.clear()
         trash = []
 
-        if self.firstTrashQuery:
+        if fullReload:
             trash = self.gmail.getTrash()
             trashDisplay = self.gmail.getSubjectAndSender(trash)
             self.firstTrashQuery = False
@@ -297,12 +297,12 @@ class MainGUI( QMainWindow ):
         self.inboxButton.setEnabled(False)
 
         self.composeButton.clicked.connect(self.composeClicked)
-        self.inboxButton.clicked.connect(self.inboxClicked)
-        self.sentButton.clicked.connect(self.sentClicked)
-        self.draftsButton.clicked.connect(self.draftsClicked)
-        self.spamButton.clicked.connect(self.spamClicked)
-        self.trashButton.clicked.connect(self.trashClicked)
-        self.refreshButton.clicked.connect(self.refreshClicked)
+        self.inboxButton.clicked.connect(lambda: self.inboxClicked(self.firstInboxQuery))
+        self.sentButton.clicked.connect(lambda: self.sentClicked(self.firstSentQuery))
+        self.draftsButton.clicked.connect(lambda: self.draftsClicked(self.firstDraftsQuery))
+        self.spamButton.clicked.connect(lambda: self.spamClicked(self.firstSpamQuery))
+        self.trashButton.clicked.connect(lambda: self.trashClicked(self.firstTrashQuery))
+        self.refreshButton.clicked.connect(lambda: self.refreshClicked(False))
         self.emailList.itemClicked.connect(self.itemClicked)
 
 class ComposeDialog(QDialog):

@@ -47,7 +47,7 @@ class GMail():
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    '3321/credentials.json', SCOPES)
+                    'credentials.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
@@ -268,6 +268,7 @@ class GMail():
     def getSubjectAndSender(self, messages):
         ret = []
         for msg in messages:
+            
             header = msg['payload']['headers']
             subject = '(No Subject)'
 
@@ -280,7 +281,7 @@ class GMail():
             
             email_str = sender + ':\n' + subject
             ret.append(email_str)
-        
+            
         return ret
     
     def getSubjectAndRecipient(self, messages):
