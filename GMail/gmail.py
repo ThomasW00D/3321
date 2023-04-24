@@ -544,3 +544,14 @@ class GMail():
             # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
 
+    def updateDraft(self, sender, to, draft_id, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None, attachments=None):
+        draft = self.createEmail(sender, to, subject, msg_html, msg_plain, cc=cc, bcc=bcc, attachments=attachments, draft=True)
+
+        try:
+            # Call the Gmail API
+            self.service.users().drafts().update(userId='me', id=draft_id, body=draft).execute()
+
+        except HttpError as error:
+            # TODO(developer) - Handle errors from gmail API.
+            print(f'An error occurred: {error}')
+

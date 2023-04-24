@@ -10,16 +10,16 @@ class MainGUI( QMainWindow ):
 
     def composeClicked(self):
         dlg = ComposeDialog(parent=mainWindow)
-        recipient, subject, body, attachments, send = dlg.getResults()
+        recipient, subject, body, attachments, send, draft = dlg.getResults()
         filePaths = []
 
         for attm in attachments:
             filePaths.append(attm[0])
 
-        if send == True:
+        if send:
             self.gmail.sendEmail(self.gmail.address, recipient, subject, msg_plain=body, attachments=filePaths)
             self.refreshClicked(True)
-        else:
+        elif draft:
             self.gmail.createDraft(self.gmail.address, recipient, subject, msg_plain=body, attachments=filePaths)
 
     def itemClicked(self):
@@ -119,18 +119,20 @@ class MainGUI( QMainWindow ):
                     plain = False
 
             dlg = ComposeDialog(subject, recAddress, body, True, mainWindow)
-            recipient, subject, body, attachments, send = dlg.getResults()
+            recipient, subject, body, attachments, send, _ = dlg.getResults()
             filePaths = []
 
             for attm in attachments:
                 filePaths.append(attm[0])
 
             if send == True:
+                self.gmail.updateDraft(self.gmail.address, recAddress, draft_id, subject, msg_plain=body, attachments=filePaths)
                 self.gmail.sendDraft(draft_id)
                 self.firstDraftsQuery = True
                 self.firstInboxQuery = True
                 self.firstSentQuery = True
-                self.refreshClicked()
+                self.refreshClicked(True)
+            
 
     def refreshClicked(self, fullReload):
         if self.currInbox == 'INBOX':
@@ -311,21 +313,26 @@ class ComposeDialog(QDialog):
         
         self.setWindowTitle("Compose")
         self.setFixedWidth(500)
-        self.setFixedHeight(500)
+        self.setFixedHeight(550)
 
         self.filePaths = []
+        self.attachmentsString = 'Attachments: '
 
         self.toEdit = QLineEdit(self)
         self.subjectEdit = QLineEdit(self)
         self.messageBody = QTextEdit(self)
         self.sendButton = QPushButton('Send', self)
         self.attachButton = QPushButton('Add Attachments', self)
+        self.attachmentLabel = QLabel(self.attachmentsString, self)
 
         self.toEdit.setGeometry(15, 15, 465, 25)
         self.subjectEdit.setGeometry(15, 55, 465, 25)
-        self.messageBody.setGeometry(15, 95, 465, 360)
-        self.sendButton.setGeometry(420, 465, 70, 25)
-        self.attachButton.setGeometry(15, 465, 150, 25)
+        self.messageBody.setGeometry(15, 95, 465, 325)
+        self.sendButton.setGeometry(420, 505, 70, 25)
+        self.attachButton.setGeometry(15, 505, 140, 25)
+        self.attachmentLabel.setGeometry(15, 425, 250, 75)
+
+        self.attachmentLabel.setWordWrap(True)
 
         if not draft:
             self.toEdit.setPlaceholderText(to)
@@ -353,22 +360,31 @@ class ComposeDialog(QDialog):
         filePath = QFileDialog.getOpenFileName(self)
         if filePath[0] != '':
             self.filePaths.append(filePath)
+            self.attachmentsString += filePath[0].split('/')[-1] + ', '
+            self.attachmentLabel.setText(self.attachmentsString)
         
     def getResults(self):
-        if self.exec() == 1:
+        result = self.exec()
+        if result == 1:
             recipient = self.toEdit.text()
             subject = self.subjectEdit.text()
             body = self.messageBody.toPlainText()
             attachments = self.filePaths
             send = True
-            return recipient, subject, body, attachments, send
+            draft = False
+            return recipient, subject, body, attachments, send, draft
         else:
             recipient = self.toEdit.text()
             subject = self.subjectEdit.text()
             body = self.messageBody.toPlainText()
             attachments = self.filePaths
             send = False
-            return recipient, subject, body, attachments, send
+            dlg = SaveDraftDialog()
+            if dlg.exec() == 1:
+                draft = True
+            else:
+                draft = False
+            return recipient, subject, body, attachments, send, draft
 
 class NoRecipient(QDialog):
     def __init__(self, parent=None):
@@ -401,6 +417,22 @@ class EmptyBody(QDialog):
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
+
+class SaveDraftDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.buttonBox = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+
+        self.layout = QVBoxLayout()
+
+        message = QLabel('Would you like to save this email as a draft?')
+        self.layout.addWidget(message)
+        self.layout.addWidget(self.buttonBox)
+        self.setLayout(self.layout)
+
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
 
 class ViewMessagePlain(QDialog):
     def __init__(self, message_body, sender, recipient, subject, attachments, gmail, currInbox, msg_id, parent=None):
