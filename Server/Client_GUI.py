@@ -150,6 +150,7 @@ class Ui_Form(object):
             
     def close_client(self, client_socket):
         client_socket.close()
+        self.logTxt.clear()
         self.logTxt.setEnabled(False)
         self.msgTxt.setEnabled(False)
         self.closeBtn.setEnabled(False)
