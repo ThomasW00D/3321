@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1267</width>
+    <height>856</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QLabel" name="hostLbl">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Host IP:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="portLbl">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>10</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Port:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="logLbl">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>130</y>
+     <width>291</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Message Log:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="msgLbl">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>130</y>
+     <width>89</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Message:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="hostTxt">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>331</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="connectBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>150</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="msgTxt">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>591</width>
+     <height>611</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>780</y>
+     <width>150</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send Message</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nicknameBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>80</y>
+     <width>150</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Set Nickname</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="nicknameLbl">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>10</y>
+     <width>111</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nickname:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="closeBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>780</y>
+     <width>150</width>
+     <height>46</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close Client</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="portTxt">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>40</y>
+     <width>331</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="nicknameTxt">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>40</y>
+     <width>331</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="logTxt">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>160</y>
+     <width>591</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
