@@ -9,7 +9,7 @@ class MainGUI( QMainWindow ):
         super(MainGUI, self).__init__()
 
     def composeClicked(self):
-        dlg = ComposeDialog(parent=mainWindow)
+        dlg = ComposeDialog(parent=self.mainWindow)
         recipient, subject, body, attachments, send, draft = dlg.getResults()
         filePaths = []
 
@@ -35,13 +35,13 @@ class MainGUI( QMainWindow ):
                 if obj['part_type'] == 'attachment':
                     attachments.append([obj, message['id']])
                 elif obj['part_type'] == 'plain':
-                    body = obj['body']
+                    body += obj['body']
                 elif obj['part_type'] == 'html':
                     body = obj['body']
                     plain = False
 
             if plain:
-                dlg = ViewMessagePlain(body, sender, recipient, subject, attachments, self.gmail, self.currInbox, message['id'], mainWindow)
+                dlg = ViewMessagePlain(body, sender, recipient, subject, attachments, self.gmail, self.currInbox, message['id'], self.mainWindow)
                 clickedInbox, clickedSpam, clickedTrash = dlg.getResults()
                 if clickedInbox:
                     self.firstInboxQuery = True
@@ -69,7 +69,7 @@ class MainGUI( QMainWindow ):
                         self.spamClicked(self.firstSpamQuery)
                     
             else:
-                dlg = ViewMessageHTML(body, sender, recipient, subject, attachments, self.gmail, self.currInbox, message['id'], mainWindow)
+                dlg = ViewMessageHTML(body, sender, recipient, subject, attachments, self.gmail, self.currInbox, message['id'], self.mainWindow)
                 clickedInbox, clickedSpam, clickedTrash = dlg.getResults()
                 if clickedInbox:
                     self.firstInboxQuery = True
@@ -118,7 +118,7 @@ class MainGUI( QMainWindow ):
                     body = obj['body']
                     plain = False
 
-            dlg = ComposeDialog(subject, recAddress, body, True, mainWindow)
+            dlg = ComposeDialog(subject, recAddress, body, True, self.mainWindow)
             recipient, subject, body, attachments, send, _ = dlg.getResults()
             filePaths = []
 
@@ -132,6 +132,8 @@ class MainGUI( QMainWindow ):
                 self.firstInboxQuery = True
                 self.firstSentQuery = True
                 self.refreshClicked(True)
+            else:
+                self.gmail.updateDraft(self.gmail.address, recAddress, draft_id, subject, msg_plain=body, attachments=filePaths)
             
 
     def refreshClicked(self, fullReload):
@@ -257,6 +259,7 @@ class MainGUI( QMainWindow ):
 
     def initUI(self, window):
         self.gmail = GMail()
+        self.mainWindow = window
 
         self.currInbox = 'INBOX'
         self.emailList = QListWidget(window)
@@ -279,17 +282,17 @@ class MainGUI( QMainWindow ):
 
         window.setWindowTitle("Email Inbox")
 
-        self.emailList.setGeometry(150, 5, 645, 490)
+        self.emailList.setGeometry(155, 10, 835, 680)
         self.composeButton.setGeometry(15, 25, 120, 50)
         self.refreshButton.setGeometry(15, 75, 120, 30)
-        self.inboxButton.setGeometry(0, 145, 150, 50)
-        self.sentButton.setGeometry(0, 185, 150, 50)
-        self.draftsButton.setGeometry(0, 225, 150, 50)
-        self.spamButton.setGeometry(0, 265, 150, 50)
-        self.trashButton.setGeometry(0, 305, 150, 50)
+        self.inboxButton.setGeometry(0, 225, 150, 50)
+        self.sentButton.setGeometry(0, 265, 150, 50)
+        self.draftsButton.setGeometry(0, 305, 150, 50)
+        self.spamButton.setGeometry(0, 345, 150, 50)
+        self.trashButton.setGeometry(0, 385, 150, 50)
 
-        window.setFixedWidth(800)
-        window.setFixedHeight(500)
+        window.setFixedWidth(1000)
+        window.setFixedHeight(700)
 
         for msg in self.inboxDisplay:
             item = QListWidgetItem(msg)
@@ -299,12 +302,12 @@ class MainGUI( QMainWindow ):
         self.inboxButton.setEnabled(False)
 
         self.composeButton.clicked.connect(self.composeClicked)
-        self.inboxButton.clicked.connect(lambda: self.inboxClicked(self.firstInboxQuery))
-        self.sentButton.clicked.connect(lambda: self.sentClicked(self.firstSentQuery))
-        self.draftsButton.clicked.connect(lambda: self.draftsClicked(self.firstDraftsQuery))
-        self.spamButton.clicked.connect(lambda: self.spamClicked(self.firstSpamQuery))
-        self.trashButton.clicked.connect(lambda: self.trashClicked(self.firstTrashQuery))
-        self.refreshButton.clicked.connect(lambda: self.refreshClicked(False))
+        self.inboxButton.clicked.connect(lambda: self.inboxClicked(True))
+        self.sentButton.clicked.connect(lambda: self.sentClicked(True))
+        self.draftsButton.clicked.connect(lambda: self.draftsClicked(True))
+        self.spamButton.clicked.connect(lambda: self.spamClicked(True))
+        self.trashButton.clicked.connect(lambda: self.trashClicked(True))
+        self.refreshButton.clicked.connect(lambda: self.refreshClicked(True))
         self.emailList.itemClicked.connect(self.itemClicked)
 
 class ComposeDialog(QDialog):
@@ -466,7 +469,7 @@ class ViewMessagePlain(QDialog):
         attmString = 'Attachments: '
 
         for obj in attachments:
-            attmString += obj[0]['filename']
+            attmString += obj[0]['filename'] + ', '
 
         attmLabel = QLabel(attmString)
         attmLabel.setWordWrap(True)

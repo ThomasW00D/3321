@@ -176,7 +176,10 @@ class GMail():
         self.inbox_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=30).execute()
+            if response['resultSizeEstimate'] == 0:
+                return self.inbox_messages
+
             messages = response['messages']
 
             for obj in messages:
@@ -196,6 +199,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.trash_messages
+
             messages = response['messages']
 
             for obj in messages:
@@ -215,6 +222,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+            
+            if response['resultSizeEstimate'] == 0:
+                return self.draft_messages
+
             messages = response['messages']
 
             for obj in messages:
@@ -234,6 +245,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.sent_messages
+
             messages = response['messages']
 
             for obj in messages:
@@ -253,6 +268,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.spam_messages
+
             messages = response['messages']
 
             for obj in messages:
@@ -306,6 +325,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId='me', labelIds=['INBOX'], maxResults=1).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.inbox_messages
+
             message = response['messages']
 
             if message[0]['id'] == self.inbox_messages[0]['id']:
@@ -322,6 +345,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId='me', labelIds=['SENT'], maxResults=1).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.sent_messages
+
             message = response['messages']
 
             if message[0]['id'] == self.sent_messages[0]['id']:
@@ -338,6 +365,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId='me', labelIds=['DRAFT'], maxResults=1).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.draft_messages
+
             message = response['messages']
 
             if message[0]['id'] == self.draft_messages[0]['id']:
@@ -354,6 +385,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId='me', labelIds=['SPAM'], maxResults=1).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.spam_messages
+
             message = response['messages']
 
             if message[0]['id'] == self.spam_messages[0]['id']:
@@ -370,6 +405,10 @@ class GMail():
         try:
             # Call the Gmail API
             response = self.service.users().messages().list(userId='me', labelIds=['TRASH'], maxResults=1).execute()
+
+            if response['resultSizeEstimate'] == 0:
+                return self.trash_messages
+
             message = response['messages']
 
             if message[0]['id'] == self.trash_messages[0]['id']:
