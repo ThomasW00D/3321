@@ -233,7 +233,7 @@ class Ui_Form(object):
             while True:
                 try:
                     msg = Ui_Form.client_socket.recv(1024).decode("ascii")
-                    if msg == 'NICK':
+                    if msg == "NICK":
                         Ui_Form.client_socket.sendall(nickname.encode("ascii"))
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
@@ -251,6 +251,7 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+    
     
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
