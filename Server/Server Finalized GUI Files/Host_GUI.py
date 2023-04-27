@@ -158,7 +158,7 @@ class Ui_Form(object):
             try:
                 Ui_Form.server_socket.bind((Ui_Form.host_ip, Ui_Form.port))
                 break
-            except:
+            except Exception:
                 self.serverTxt.insertPlainText(
                     f"Port {Ui_Form.port} was taken. Reattempting.\n"
                 )
@@ -187,7 +187,7 @@ class Ui_Form(object):
                     msg = client.recv(1024)
                     broadcast(msg)
                     time.sleep(0.1)
-                except:
+                except Exception:
                     index = clients.index(client)
                     clients.remove(client)
                     client.close()
@@ -220,7 +220,7 @@ class Ui_Form(object):
 
                     handle_thread = threading.Thread(target=handle, args=(client,))
                     handle_thread.start()
-                except:
+                except Exception:
                     self.serverTxt.insertPlainText("Server closed.\n")
                     break
 
@@ -240,7 +240,7 @@ class Ui_Form(object):
                         self.logTxt.insertPlainText(msg + "\n")
                         time.sleep(0.1)
                     time.sleep(0.1)
-                except:
+                except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
                     Ui_Form.client_socket.close()
