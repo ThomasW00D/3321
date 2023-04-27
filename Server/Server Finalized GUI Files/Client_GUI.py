@@ -127,8 +127,8 @@ class Ui_Form(object):
                     except:
                         self.logTxt.insertPlainText(
                             "Host IP number or port number is incorrect. Please recheck your "
-                                                    "information and try again.\n
-                                                    If problem persists, you can try "
+                                                    "information and try again.\n"
+                                                    "If problem persists, you can try "
                                                     "creating a server and inviting friends!\n"
                         )
                         Ui_Form.client_socket.close()
