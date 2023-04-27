@@ -126,10 +126,10 @@ class Ui_Form(object):
                         break
                     except:
                         self.logTxt.insertPlainText(
-                            "Host IP number or port number is incorrect. Please recheck your "
-                                                    "information and try again.\n"
-                                                    "If problem persists, you can try "
-                                                    "creating a server and inviting friends!\n"
+                            "Host IP number or port number is incorrect. "
+                            "Please recheck your information and try again."
+                            "\nIf problem persists, you can try creating a "
+                            "server and inviting friends!\n"
                         )
                         Ui_Form.client_socket.close()
                         return
@@ -213,9 +213,7 @@ class Ui_Form(object):
 
 
 if __name__ == "__main__":
-    import sys
-    
-    
+    import sys    
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
