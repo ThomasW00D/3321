@@ -6,7 +6,7 @@
 2. [Usage](#usage)
 3. [Authors](#authors)
 4. [License](#license)
-## Installation:
+## Installation
 Before installing this project, you must have both Python and PyQt5 installed on your local machine. <br>
 Once installed, you should see a button to copy the link to this respository. If not, it can be found in the address bar.<br>
 Once you've copied the link, you can clone this repository to your local machine. Finally, open the repository in your code editor or use the command-line to run the main GUI file.
