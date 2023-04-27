@@ -82,7 +82,9 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-        self.createBtn.clicked.connect(lambda: threading.Thread(target=self.server).start())
+        self.createBtn.clicked.connect(
+            lambda: threading.Thread(target=self.server).start()
+        )
         self.nicknameBtn.clicked.connect(lambda: self.client_setup())
         self.sendBtn.clicked.connect(lambda: self.write(Ui_Form.nickname))
         self.closeBtn.clicked.connect(lambda: self.close_host())
@@ -101,7 +103,9 @@ class Ui_Form(object):
     def client_setup(self):
         Ui_Form.nickname = self.nicknameTxt.text()
         if Ui_Form.nickname.isspace() or len(Ui_Form.nickname) == 0:
-            self.msgTxt.insertPlainText("Incorrect nickname. Nickname can't be white space.\n")
+            self.msgTxt.insertPlainText(
+                "Incorrect nickname. Nickname can't be white space.\n"
+            )
             return
         else:
             self.nicknameTxt.setEnabled(False)
@@ -118,7 +122,7 @@ class Ui_Form(object):
             return
 
     def write(self, nickname):
-        message = f'(Host) {nickname}: {self.msgTxt.toPlainText()}'
+        message = f"(Host) {nickname}: {self.msgTxt.toPlainText()}"
         time.sleep(0.1)
         if message:
             Ui_Form.client_socket.sendall(message.encode())
@@ -154,13 +158,17 @@ class Ui_Form(object):
                 Ui_Form.server_socket.bind((Ui_Form.host_ip, Ui_Form.port))
                 break
             except:
-                self.serverTxt.insertPlainText(f"Port {Ui_Form.port} was taken. Reattempting.\n")
+                self.serverTxt.insertPlainText(
+                    f"Port {Ui_Form.port} was taken. Reattempting.\n"
+                )
                 time.sleep(0.1)
                 continue
 
         self.nicknameBtn.setEnabled(True)
         self.nicknameTxt.setEnabled(True)
-        self.serverTxt.insertPlainText(f'Host IP: {Ui_Form.host_ip}\nHost Port: {Ui_Form.port}\n')
+        self.serverTxt.insertPlainText(
+            f"Host IP: {Ui_Form.host_ip}\nHost Port: {Ui_Form.port}\n"
+        )
         time.sleep(0.1)
         Ui_Form.server_socket.listen()
 
@@ -183,7 +191,7 @@ class Ui_Form(object):
                     clients.remove(client)
                     client.close()
                     nickname = nicknames[index]
-                    broadcast(f'{nickname} left the chat.\n'.encode('ascii'))
+                    broadcast(f"{nickname} left the chat.\n".encode("ascii"))
                     time.sleep(0.1)
                     nicknames.remove(nickname)
                     break
@@ -194,17 +202,19 @@ class Ui_Form(object):
                     client, address = Ui_Form.server_socket.accept()
                     self.serverTxt.insertPlainText(f"Connected with {str(address)}\n")
                     time.sleep(0.1)
-                    client.sendall("NICK".encode('ascii'))
-                    nickname = client.recv(1024).decode('ascii')
+                    client.sendall("NICK".encode("ascii"))
+                    nickname = client.recv(1024).decode("ascii")
                     time.sleep(0.1)
                     nicknames.append(nickname)
                     clients.append(client)
 
-                    self.serverTxt.insertPlainText(f'Nickname of new client is {nickname}.\n')
+                    self.serverTxt.insertPlainText(
+                        f"Nickname of new client is {nickname}.\n"
+                    )
                     time.sleep(0.1)
-                    broadcast(f'{nickname} joined the chat.\n'.encode('ascii'))
+                    broadcast(f"{nickname} joined the chat.\n".encode("ascii"))
                     time.sleep(0.1)
-                    client.sendall('Connected to the server.\n'.encode('ascii'))
+                    client.sendall("Connected to the server.\n".encode("ascii"))
                     time.sleep(0.1)
 
                     handle_thread = threading.Thread(target=handle, args=(client,))
@@ -222,9 +232,9 @@ class Ui_Form(object):
         def receive():
             while True:
                 try:
-                    msg = Ui_Form.client_socket.recv(1024).decode('ascii')
+                    msg = Ui_Form.client_socket.recv(1024).decode("ascii")
                     if msg == 'NICK':
-                        Ui_Form.client_socket.sendall(nickname.encode('ascii'))
+                        Ui_Form.client_socket.sendall(nickname.encode("ascii"))
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
                         time.sleep(0.1)
@@ -241,6 +251,7 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+    
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
