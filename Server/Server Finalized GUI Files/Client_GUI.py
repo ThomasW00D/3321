@@ -17,7 +17,7 @@ import time
 
 class Ui_Form(object):
     host_ip = ""
-    port = 0
+    port = ""
     nickname = ""
     client_socket = None
 
@@ -125,7 +125,7 @@ class Ui_Form(object):
                             (Ui_Form.host_ip, int(Ui_Form.port))
                         )
                         break
-                    except:
+                    except Exception:
                         self.logTxt.insertPlainText(
                             "Host IP number or port number is incorrect. "
                             "Please recheck your information and try again."
@@ -203,7 +203,7 @@ class Ui_Form(object):
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
                         time.sleep(0.1)
-                except:
+                except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
                     Ui_Form.client_socket.close()
