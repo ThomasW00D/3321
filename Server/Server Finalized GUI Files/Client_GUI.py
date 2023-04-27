@@ -127,7 +127,8 @@ class Ui_Form(object):
                     except:
                         self.logTxt.insertPlainText(
                             "Host IP number or port number is incorrect. Please recheck your "
-                                                    "information and try again.\nIf problem persists, you can try "
+                                                    "information and try again.\n
+                                                    If problem persists, you can try "
                                                     "creating a server and inviting friends!\n"
                         )
                         Ui_Form.client_socket.close()
@@ -195,7 +196,7 @@ class Ui_Form(object):
             while True:
                 try:
                     msg = Ui_Form.client_socket.recv(1024).decode("ascii")
-                    if msg == 'NICK':
+                    if msg == "NICK":
                         Ui_Form.client_socket.sendall(nickname.encode("ascii"))
                         time.sleep(0.1)
                     else:
@@ -213,6 +214,7 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+    
     
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
