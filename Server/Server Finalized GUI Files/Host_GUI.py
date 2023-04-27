@@ -9,9 +9,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import threading
-import socket
 import random
+import socket
+import sys
+import threading
 import time
 
 
@@ -250,8 +251,6 @@ class Ui_Form(object):
 
 
 if __name__ == "__main__":
-    import sys
-    
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
