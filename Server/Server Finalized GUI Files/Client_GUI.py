@@ -115,22 +115,32 @@ class Ui_Form(object):
         while True:
             if Ui_Form.port.isdigit():
                 if 10000 <= int(Ui_Form.port) <= 65535:
-                    Ui_Form.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    Ui_Form.client_socket = socket.socket(
+                        socket.AF_INET, socket.SOCK_STREAM
+                    )
 
                     try:
-                        Ui_Form.client_socket.connect((Ui_Form.host_ip, int(Ui_Form.port)))
+                        Ui_Form.client_socket.connect(
+                            (Ui_Form.host_ip, int(Ui_Form.port))
+                        )
                         break
                     except:
-                        self.logTxt.insertPlainText("Host IP number or port number is incorrect. Please recheck your "
+                        self.logTxt.insertPlainText(
+                            "Host IP number or port number is incorrect. Please recheck your "
                                                     "information and try again.\nIf problem persists, you can try "
-                                                    "creating a server and inviting friends!\n")
+                                                    "creating a server and inviting friends!\n"
+                        )
                         Ui_Form.client_socket.close()
                         return
                 else:
-                    self.logTxt.insertPlainText("Host IP or port is incorrect. Port must be between 10000 and 65535.\n")
+                    self.logTxt.insertPlainText(
+                        "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
+                    )
                     return
             else:
-                self.logTxt.insertPlainText("Host IP or port is incorrect. Port must be between 10000 and 65535.\n")
+                self.logTxt.insertPlainText(
+                    "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
+                )
                 return
 
         self.connectBtn.setEnabled(False)
@@ -144,7 +154,9 @@ class Ui_Form(object):
     def nickname_setup(self):
         Ui_Form.nickname = self.nicknameTxt.text()
         if Ui_Form.nickname.isspace() or len(Ui_Form.nickname) == 0:
-            self.msgTxt.insertPlainText("Incorrect nickname. Nickname can't be white space.\n")
+            self.msgTxt.insertPlainText(
+                "Incorrect nickname. Nickname can't be white space.\n"
+            )
             return
         else:
             self.nicknameTxt.setEnabled(False)
@@ -159,7 +171,7 @@ class Ui_Form(object):
             return
 
     def write(self, nickname):
-        message = f'{nickname}: {self.msgTxt.toPlainText()}'
+        message = f"{nickname}: {self.msgTxt.toPlainText()}"
         time.sleep(0.1)
         if message:
             Ui_Form.client_socket.sendall(message.encode())
@@ -182,9 +194,9 @@ class Ui_Form(object):
         def receive():
             while True:
                 try:
-                    msg = Ui_Form.client_socket.recv(1024).decode('ascii')
+                    msg = Ui_Form.client_socket.recv(1024).decode("ascii")
                     if msg == 'NICK':
-                        Ui_Form.client_socket.sendall(nickname.encode('ascii'))
+                        Ui_Form.client_socket.sendall(nickname.encode("ascii"))
                         time.sleep(0.1)
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
@@ -201,6 +213,7 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+    
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
