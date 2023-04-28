@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import patch
-from PyQt5 import QtWidgets
+
 from Client_GUI import Ui_Client
+from PyQt5 import QtWidgets
 
 
 class TestConnectSetup(unittest.TestCase):
@@ -29,9 +30,11 @@ class TestConnectSetup(unittest.TestCase):
         self.ui.portTxt.setText("12345")
         self.ui.connect_setup()
         self.assertIn(
-            "Host IP number or port number is incorrect. Please recheck your information and try again."
-                      "\nIf problem persists, you can try creating a server and inviting friends!\n",
-                      self.ui.logTxt.toPlainText()
+            "Host IP number or port number is incorrect. "
+            "Please recheck your information and try again."
+            "\nIf problem persists, you can try creating a "
+            "server and inviting friends!\n"
+            , self.ui.logTxt.toPlainText()
         )
 
     def test_connect_setup_incorrect_port(self):
@@ -39,10 +42,13 @@ class TestConnectSetup(unittest.TestCase):
         self.ui.portTxt.setText("99999")
         with patch("socket.socket") as mock_socket:
             self.ui.connect_setup()
-            self.assertIn("Host IP or port is incorrect. Port must be between 10000 and 65535.\n",
-                          self.ui.logTxt.toPlainText())
+            self.assertIn(
+                "Host IP or port is incorrect. "
+                "Port must be between 10000 and 65535.\n"
+                , self.ui.logTxt.toPlainText()
+            )
             mock_socket.assert_not_called()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
