@@ -1,19 +1,18 @@
 from __future__ import print_function
 
+import base64
+import mimetypes
 import os.path
 import sys
-import base64
 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
 from email.mime.application import MIMEApplication
 from email.mime.audio import MIMEAudio
+from email.mime.base import MIMEBase
 from email.mime.image import MIMEImage
-import mimetypes
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from bs4 import BeautifulSoup
-
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow

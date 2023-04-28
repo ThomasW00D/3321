@@ -1,8 +1,10 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QSize, Qt, QUrl
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from gmail import *
 import sys
+
+from gmail import *
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWidgets import QMainWindow, QScrollArea, QDialog, QWidget, QListWidget, QListWidgetItem, QPushButton, QLabel, QDialogButtonBox, QVBoxLayout, QHBoxLayout, QLineEdit, QFileDialog, QTextEdit, QApplication
+
 
 class MainGUI( QMainWindow ):	
     def __init__( self ):
@@ -645,3 +647,11 @@ class ScrollLabel(QScrollArea):
 
     def setText(self, text):
         self.label.setText(text)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    Form = QWidget()
+    ui = MainGUI()
+    ui.initUI(Form)
+    Form.show()
+    sys.exit(app.exec_())
