@@ -14,7 +14,7 @@ import sys
 import threading
 import time
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 
 class Ui_Form(object):
