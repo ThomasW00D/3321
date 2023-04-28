@@ -31,11 +31,9 @@ class TestConnectSetup(unittest.TestCase):
         self.ui.connect_setup()
         self.assertIn(
             "Host IP number or port number is incorrect. "
-            "Please recheck your information and try again."
-            "\nIf problem persists, you can try creating a "
-            "server and inviting friends!\n"
-            "",
-            self.ui.logTxt.toPlainText()
+            "Please recheck your information and try again.\n"
+            "If problem persists, you can try creating a server and inviting friends!\n"
+            , self.ui.logTxt.toPlainText()
         )
 
     def test_connect_setup_incorrect_port(self):
@@ -44,10 +42,8 @@ class TestConnectSetup(unittest.TestCase):
         with patch("socket.socket") as mock_socket:
             self.ui.connect_setup()
             self.assertIn(
-                "Host IP or port is incorrect. "
-                "Port must be between 10000 and 65535.\n"
-                "",
-                self.ui.logTxt.toPlainText()
+                "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
+                , self.ui.logTxt.toPlainText()
             )
             mock_socket.assert_not_called()
 
