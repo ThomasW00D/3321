@@ -1,14 +1,14 @@
 import sys
 
 from PyQt5.QtWidgets import (
-  QApplication, 
-  QWidget, 
-  QLabel, 
-  QLineEdit, 
-  QTextEdit, 
-  QPushButton, 
-  QVBoxLayout, 
-  QStackedWidget
+    QApplication, 
+    QWidget, 
+    QLabel, 
+    QLineEdit, 
+    QTextEdit, 
+    QPushButton, 
+    QVBoxLayout, 
+    QStackedWidget
 )
 
 
@@ -57,7 +57,6 @@ class LoginWindow(QWidget):
 
     def switch_to_inbox(self):
         self.stacked_widget.setCurrentIndex(2)
-        
 
 class SignupWindow(QWidget):
     def __init__(self, stacked_widget):
@@ -105,7 +104,6 @@ class SignupWindow(QWidget):
     def switch_to_login(self):
         self.stacked_widget.setCurrentIndex(0)
 
-        
 class EmailWindow(QWidget):
     def __init__(self, stacked_widget):
         super().__init__()
@@ -140,7 +138,6 @@ class EmailWindow(QWidget):
     def switch_to_login(self):
         self.stacked_widget.setCurrentIndex(0)
 
-        
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
