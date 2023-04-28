@@ -1,5 +1,15 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QTextEdit, QPushButton, QVBoxLayout, QStackedWidget
+
+from PyQt5.QtWidgets import (QApplication, 
+                             QWidget, 
+                             QLabel, 
+                             QLineEdit, 
+                             QTextEdit, 
+                             QPushButton, 
+                             QVBoxLayout, 
+                             QStackedWidget
+                            )
+
 
 class LoginWindow(QWidget):
     def __init__(self, stacked_widget):
@@ -8,14 +18,14 @@ class LoginWindow(QWidget):
         self.stacked_widget = stacked_widget
 
         # Create UI components
-        self.email_label = QLabel('Email:')
+        self.email_label = QLabel("Email:")
         self.email_input = QLineEdit()
-        self.password_label = QLabel('Password:')
+        self.password_label = QLabel("Password:")
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
-        self.login_button = QPushButton('Login')
-        self.email_button = QPushButton('Inbox')
-        self.switch_button = QPushButton('Switch to Signup')
+        self.login_button = QPushButton("Login")
+        self.email_button = QPushButton("Inbox")
+        self.switch_button = QPushButton("Switch to Signup")
 
         # Set up layout
         self.layout = QVBoxLayout()
@@ -38,14 +48,15 @@ class LoginWindow(QWidget):
         email = self.email_input.text()
         password = self.password_input.text()
         # Add logic to perform login here
-        print('Login with Email:', email)
-        print('Password:', password)
+        print("Login with Email:", email)
+        print("Password:", password)
 
     def switch_to_signup(self):
         self.stacked_widget.setCurrentIndex(1)
 
     def switch_to_inbox(self):
         self.stacked_widget.setCurrentIndex(2)
+        
 
 class SignupWindow(QWidget):
     def __init__(self, stacked_widget):
@@ -54,15 +65,15 @@ class SignupWindow(QWidget):
         self.stacked_widget = stacked_widget
 
         # Create UI components
-        self.name_label = QLabel('Name:')
+        self.name_label = QLabel("Name:")
         self.name_input = QLineEdit()
-        self.email_label = QLabel('Email:')
+        self.email_label = QLabel("Email:")
         self.email_input = QLineEdit()
-        self.password_label = QLabel('Password:')
+        self.password_label = QLabel("Password:")
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
-        self.signup_button = QPushButton('Signup')
-        self.switch_button = QPushButton('Switch to Login')
+        self.signup_button = QPushButton("Signup")
+        self.switch_button = QPushButton("Switch to Login")
 
         # Set up layout
         self.layout = QVBoxLayout()
@@ -86,9 +97,9 @@ class SignupWindow(QWidget):
         email = self.email_input.text()
         password = self.password_input.text()
         # Add logic to perform signup here
-        print('Signup with Name:', name)
-        print('Email:', email)
-        print('Password:', password)
+        print("Signup with Name:", name)
+        print("Email:", email)
+        print("Password:", password)
 
     def switch_to_login(self):
         self.stacked_widget.setCurrentIndex(0)
@@ -101,14 +112,14 @@ class EmailWindow(QWidget):
         self.stacked_widget = stacked_widget
 
         # Create UI components
-        self.recipient_label = QLabel('Recipient:')
+        self.recipient_label = QLabel("Recipient:")
         self.recipient_input = QLineEdit()
-        self.subject_label = QLabel('Subject:')
+        self.subject_label = QLabel("Subject:")
         self.subject_input = QLineEdit()
-        self.message_label = QLabel('Message:')
+        self.message_label = QLabel("Message:")
         self.message_input = QTextEdit()
-        self.send_button = QPushButton('Send')
-        self.switch_button = QPushButton('Switch to Login')
+        self.send_button = QPushButton("Send")
+        self.switch_button = QPushButton("Switch to Login")
 
         # Set up layout
         self.layout = QVBoxLayout()
@@ -129,7 +140,8 @@ class EmailWindow(QWidget):
     def switch_to_login(self):
         self.stacked_widget.setCurrentIndex(0)
 
-if __name__ == '__main__':
+        
+if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     # Create a stacked widget to manage multiple windows
@@ -150,4 +162,3 @@ if __name__ == '__main__':
 
     stacked_widget.show()
     sys.exit(app.exec_())
-
