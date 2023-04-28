@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QStackedWidget,
- )
+)
 
 
 class LoginWindow(QWidget):
@@ -59,7 +59,6 @@ class LoginWindow(QWidget):
         self.stacked_widget.setCurrentIndex(2)
         
         
-        
 class SignupWindow(QWidget):
     def __init__(self, stacked_widget):
         super().__init__()
@@ -107,7 +106,6 @@ class SignupWindow(QWidget):
         self.stacked_widget.setCurrentIndex(0)
         
         
-        
 class EmailWindow(QWidget):
     def __init__(self, stacked_widget):
         super().__init__()
@@ -141,7 +139,6 @@ class EmailWindow(QWidget):
 
     def switch_to_login(self):
         self.stacked_widget.setCurrentIndex(0)
-        
         
         
 if __name__ == "__main__":
