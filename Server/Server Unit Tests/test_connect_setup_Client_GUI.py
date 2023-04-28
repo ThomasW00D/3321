@@ -25,7 +25,7 @@ class TestConnectSetup(unittest.TestCase):
             self.assertTrue(self.ui.nicknameBtn.isEnabled())
             self.assertIn("Socket succeeded.\n", self.ui.logTxt.toPlainText())
 
-        def test_connect_setup_incorrect_host_ip(self):
+    def test_connect_setup_incorrect_host_ip(self):
         self.ui.hostTxt.setText('INVALID')
         self.ui.portTxt.setText('12345')
         self.ui.connect_setup()
@@ -35,7 +35,7 @@ class TestConnectSetup(unittest.TestCase):
             self.ui.logTxt.toPlainText()
         )
 
-        def test_connect_setup_incorrect_port(self):
+    def test_connect_setup_incorrect_port(self):
         self.ui.hostTxt.setText('192.168.1.8')
         self.ui.portTxt.setText('99999')
         with patch('socket.socket') as mock_socket:
