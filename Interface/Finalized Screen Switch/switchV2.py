@@ -1,28 +1,24 @@
 import sys
 import time
+import welcomePage
+
+from Client_GUI import Ui_Client
+from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, QEventLoop, QTimer
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget,
-    QVBoxLayout,
+    QDesktopWidget,
+    QFrame,
+    QGridLayout,
+    QHBoxLayout,
     QLabel,
+    QMainWindow,
     QPushButton,
     QProgressBar,
-    QFrame,
-    QHBoxLayout,
-    QGridLayout,
-    QDesktopWidget,
-    QMainWindow,
+    QVBoxLayout,
+    QWidget,
 )
-
-# Import host_GUI UI note, must have host_GUI in folder
-import welcomePage
-from host_GUI import Ui_Form
-
-# Import Client_GUI UI note, must have Client_GUI in folder
-from Client_GUI import Ui_Client
-
 # Import gmailgui UI note, must have gmailgui in folder
 # from gmailgui import MainGUI
 # Import welcomePage UI, note must have welcomePage in folder
@@ -52,7 +48,6 @@ class LoadingPage(QWidget):
     # Method to open Gmail GUI UI
     def openGmail(self):
         self.window = QWidget()
-        # self.ui = MainGUI()
         self.ui.initUI(self.window)
         self.window.show()
 
