@@ -2,16 +2,32 @@ import sys
 import time
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, pyqtSignal, QEventLoop, QTimer
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QProgressBar, QFrame, QHBoxLayout, QGridLayout, QDesktopWidget, QMainWindow
+from PyQt5.QtWidgets import (
+    QApplication,
+    QWidget,
+    QVBoxLayout,
+    QLabel,
+    QPushButton,
+    QProgressBar,
+    QFrame,
+    QHBoxLayout,
+    QGridLayout,
+    QDesktopWidget,
+    QMainWindow,
+)
+
 # Import host_GUI UI note, must have host_GUI in folder
 import welcomePage
 from host_GUI import Ui_Form
+
 # Import Client_GUI UI note, must have Client_GUI in folder
 from Client_GUI import Ui_Client
+
 # Import gmailgui UI note, must have gmailgui in folder
-#from gmailgui import MainGUI
+# from gmailgui import MainGUI
 # Import welcomePage UI, note must have welcomePage in folder
-#from welcomePage import SplashScreen
+# from welcomePage import SplashScreen
+
 
 # LoadingPage UI class
 class LoadingPage(QWidget):
@@ -21,41 +37,42 @@ class LoadingPage(QWidget):
 
     # Method to open Host GUI UI
     def openHost(self):
-        self.window =QtWidgets.QWidget()
+        self.window = QtWidgets.QWidget()
         self.ui = Ui_Form()
         self.ui.setupUi(self.window)
         self.window.show()
 
     # Method to open Client GUI UI
     def openClient(self):
-        self.window =QtWidgets.QWidget()
+        self.window = QtWidgets.QWidget()
         self.ui = Ui_Client()
         self.ui.setupUi(self.window)
         self.window.show()
 
     # Method to open Gmail GUI UI
     def openGmail(self):
-        self.window =QWidget()
-        #self.ui = MainGUI()
+        self.window = QWidget()
+        # self.ui = MainGUI()
         self.ui.initUI(self.window)
         self.window.show()
 
     # Method to open Welcome GUI UI
-    #def openWelcome(self):
-
+    # def openWelcome(self):
 
     # Define the loading page
     def init_ui(self):
-        self.setWindowTitle('Loading Page')
+        self.setWindowTitle("Loading Page")
         self.setGeometry(300, 300, 400, 150)
         self.center()
 
         # Create widgets
-        label = QLabel('                                Welcome to the Home Loading Page!', self)
+        label = QLabel(
+            "                                Welcome to the Home Loading Page!", self
+        )
 
-        button1 = QPushButton('E-Mail', self)
-        button2 = QPushButton('Host Server', self)
-        button3 = QPushButton('Join Server', self)
+        button1 = QPushButton("E-Mail", self)
+        button2 = QPushButton("Host Server", self)
+        button3 = QPushButton("Join Server", self)
 
         # Create layout
         layout = QVBoxLayout()
@@ -88,9 +105,11 @@ class LoadingPage(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setStyleSheet('''
+    app.setStyleSheet(
+        """
         #LabelTitle {
             font-size: 60px;
             color: #93deed;
@@ -119,7 +138,8 @@ if __name__ == '__main__':
             border-radius: 10px;
             background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #1C3334, stop:1 #376E6F);
         }
-    ''')
+    """
+    )
 
     splash = welcomePage.SplashScreen()
     splash.show()
@@ -128,11 +148,9 @@ if __name__ == '__main__':
         sys.exit(app.exec_())
 
     except SystemExit:
-        print('Closing Window...')
+        print("Closing Window...")
 
     app.setStyleSheet("")
     window = LoadingPage()
     window.show()
     sys.exit(app.exec_())
-
-
