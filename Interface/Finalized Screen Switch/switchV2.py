@@ -1,17 +1,17 @@
 import sys
+
+import welcomePage
+from Client_GUI import Ui_Client
+from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (
     QApplication,
-    QWidget,
-    QVBoxLayout,
+    QDesktopWidget,
     QLabel,
     QPushButton,
-    QDesktopWidget,
+    QVBoxLayout,
+    QWidget,
 )
-
-import welcomePage
-from Host_GUI import Ui_Host
-from Client_GUI import Ui_Client
 
 # Import gmailgui UI note, must have gmailgui in folder
 # from gmailgui import MainGUI
