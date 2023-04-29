@@ -3,7 +3,6 @@ from __future__ import print_function
 import base64
 import mimetypes
 import os.path
-import sys
 from email.mime.application import MIMEApplication
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
