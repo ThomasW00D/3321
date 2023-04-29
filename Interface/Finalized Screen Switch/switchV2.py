@@ -1,7 +1,7 @@
 import sys
 import time
-import welcomePage
 
+import welcomePage
 from Client_GUI import Ui_Client
 from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
