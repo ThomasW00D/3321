@@ -1,16 +1,15 @@
 import sys
 import time
-
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (
     QApplication,
-    QFrame,
-    QLabel,
-    QProgressBar,
-    QVBoxLayout,
     QWidget,
+    QProgressBar,
+    QLabel,
+    QFrame,
+    QVBoxLayout,
 )
+from PyQt5.QtCore import Qt, QTimer
 
 # from host_GUI import Ui_Form
 from switchV2 import LoadingPage
@@ -127,7 +126,8 @@ if __name__ == "__main__":
         }
         QProgressBar::chunk {
             border-radius: 10px;
-            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #1C3334, stop:1 #376E6F);
+            background-color: qlineargradient(spread:pad x1:0, x2:1,
+             y1:0.511364, y2:0.523, stop:0 #1C3334, stop:1 #376E6F);
         }
     """
     )
@@ -142,4 +142,3 @@ if __name__ == "__main__":
         app.setStyleSheet("")
         splash.openSwitch()
         sys.exit(app.exec_())
-        print("Closing Window...")
