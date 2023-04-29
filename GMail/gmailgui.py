@@ -5,16 +5,16 @@ from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
     QApplication,
+    QDialog,
+    QDialogButtonBox,
     QFileDialog,
     QHBoxLayout,
     QLabel,
     QLineEdit,
-    QMainWindow,
     QListWidget,
     QListWidgetItem,
+    QMainWindow,
     QPushButton,
-    QDialog,
-    QDialogButtonBox,
     QScrollArea,
     QTextEdit,
     QVBoxLayout,
@@ -57,8 +57,7 @@ class MainGUI(QMainWindow):
             message = self.gmail.getEmail(self.currInbox, self.emailList.currentRow())
             sender, recipient, _, subject = self.gmail.evaluateMessageHeader(message)
             payload = self.gmail.evaluateMessagePayload(
-                message["payload"],
-                "me", message["id"]
+                message["payload"], "me", message["id"]
             )
             body = ""
             plain = True
@@ -324,7 +323,6 @@ class MainGUI(QMainWindow):
         self.draftsButton.setEnabled(True)
         self.spamButton.setEnabled(True)
         self.trashButton.setEnabled(True)
-
 
     def initUI(self, window):
         self.gmail = GMail()
