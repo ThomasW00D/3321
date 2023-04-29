@@ -4,26 +4,26 @@ from gmail import *
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
+    QApplication,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
     QMainWindow,
-    QScrollArea,
-    QDialog,
-    QWidget,
     QListWidget,
     QListWidgetItem,
     QPushButton,
-    QLabel,
+    QDialog,
     QDialogButtonBox,
-    QVBoxLayout,
-    QHBoxLayout,
-    QLineEdit,
-    QFileDialog,
+    QScrollArea,
     QTextEdit,
-    QApplication,
+    QVBoxLayout,
+    QWidget,
 )
 
 
-class MainGUI( QMainWindow ):	
-    def __init__( self ):
+class MainGUI(QMainWindow):
+    def __init__(self):
         super(MainGUI, self).__init__()
 
     def composeClicked(self):
@@ -159,7 +159,8 @@ class MainGUI( QMainWindow ):
             recAddress = recAddress[4:]
             payload = self.gmail.evaluateMessagePayload(
                 message["payload"],
-                "me", message["id"],
+                "me",
+                message["id"],
             )
             body = ""
             plain = True
@@ -204,7 +205,6 @@ class MainGUI( QMainWindow ):
                     msg_plain=body,
                     attachments=filePaths,
                 )
-            
 
     def refreshClicked(self, fullReload):
         if self.currInbox == "INBOX":
@@ -237,7 +237,6 @@ class MainGUI( QMainWindow ):
             item = QListWidgetItem(msg)
             item.setSizeHint(QSize(0, 50))
             self.emailList.addItem(item)
-            
 
     def sentClicked(self, fullReload):
         self.currInbox = "SENT"
@@ -380,9 +379,11 @@ class MainGUI( QMainWindow ):
         self.refreshButton.clicked.connect(lambda: self.refreshClicked(True))
         self.emailList.itemClicked.connect(self.itemClicked)
 
+
 class ComposeDialog(QDialog):
     def __init__(
-        self, subject="Subject: ",
+        self,
+        subject="Subject: ",
         to="To: ",
         body="Message Body: ",
         draft=False,
@@ -437,7 +438,7 @@ class ComposeDialog(QDialog):
 
     def attachClicked(self):
         filePath = QFileDialog.getOpenFileName(self)
-        if filePath[0] != '':
+        if filePath[0] != "":
             self.filePaths.append(filePath)
             self.attachmentsString += filePath[0].split("/")[-1] + ", "
             self.attachmentLabel.setText(self.attachmentsString)
@@ -547,7 +548,7 @@ class ViewMessagePlain(QDialog):
         self.footerLayout = QHBoxLayout()
         self.bodyLayout = QVBoxLayout()
         self.attmLayout = QHBoxLayout()
-        
+
         headerLabel = QLabel(sender + "\n" + recipient)
         trashButton = QPushButton("Move to Trash")
         spamButton = QPushButton("Mark as Spam")
@@ -574,7 +575,7 @@ class ViewMessagePlain(QDialog):
         if attachments != []:
             self.attmLayout.addWidget(attmLabel)
             self.attmLayout.addWidget(self.downloadButton)
-        
+
         if currInbox == "INBOX":
             self.footerLayout.addWidget(spamButton)
             self.footerLayout.addWidget(trashButton)
@@ -591,7 +592,9 @@ class ViewMessagePlain(QDialog):
         self.layout.addLayout(self.footerLayout)
         self.setLayout(self.layout)
 
-        self.downloadButton.clicked.connect(lambda: self.downloadClicked(attachments, gmail))
+        self.downloadButton.clicked.connect(
+            lambda: self.downloadClicked(attachments, gmail)
+        )
         inboxButton.clicked.connect(lambda: self.inboxClicked(msg_id, gmail, currInbox))
         spamButton.clicked.connect(lambda: self.spamClicked(msg_id, gmail, currInbox))
         trashButton.clicked.connect(lambda: self.trashClicked(msg_id, gmail, currInbox))
@@ -621,7 +624,6 @@ class ViewMessagePlain(QDialog):
             return self.clickedInbox, self.clickedSpam, self.clickedTrash
         else:
             return self.clickedInbox, self.clickedSpam, self.clickedTrash
-
 
 
 class ViewMessageHTML(QDialog):
@@ -676,7 +678,7 @@ class ViewMessageHTML(QDialog):
         self.bodyLayout.addWidget(headerLabel)
         self.bodyLayout.addWidget(subjectLabel)
         self.bodyLayout.addWidget(webView)
-        
+
         if attachments != []:
             self.attmLayout.addWidget(attmLabel)
             self.attmLayout.addWidget(self.downloadButton)
@@ -697,7 +699,9 @@ class ViewMessageHTML(QDialog):
         self.layout.addLayout(self.footerLayout)
         self.setLayout(self.layout)
 
-        self.downloadButton.clicked.connect(lambda: self.downloadClicked(attachments, gmail))
+        self.downloadButton.clicked.connect(
+            lambda: self.downloadClicked(attachments, gmail)
+        )
         inboxButton.clicked.connect(lambda: self.inboxClicked(msg_id, gmail, currInbox))
         spamButton.clicked.connect(lambda: self.spamClicked(msg_id, gmail, currInbox))
         trashButton.clicked.connect(lambda: self.trashClicked(msg_id, gmail, currInbox))
