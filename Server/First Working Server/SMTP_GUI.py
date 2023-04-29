@@ -14,7 +14,6 @@ from PyQt5 import QtCore, QtWidgets
 
 
 class Ui_MainWindow(object):
-
     emailAddress = ""
     password = ""
 
