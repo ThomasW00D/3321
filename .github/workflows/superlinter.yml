@@ -12,6 +12,12 @@ jobs:
 
       - name: Run Super-Linter
         uses: github/super-linter@v4
+        with:
+        
+          languages: python
+          
+          pylint_options: --disable=all --enable=warning,refactor,convention,design
+          
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
