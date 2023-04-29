@@ -1,20 +1,13 @@
 import sys
-import time
 
 import welcomePage
 from Client_GUI import Ui_Client
 from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QEventLoop, QObject, QTimer, pyqtSignal
-from PyQt5.QtWidgets import (
+from PyQt5.QtWidgets import(
     QApplication,
     QDesktopWidget,
-    QFrame,
-    QGridLayout,
-    QHBoxLayout,
     QLabel,
-    QMainWindow,
-    QProgressBar,
     QPushButton,
     QVBoxLayout,
     QWidget,
@@ -63,7 +56,7 @@ class LoadingPage(QWidget):
 
         # Create widgets
         label = QLabel(
-            "                                Welcome to the Home Loading Page!", self
+            "Welcome to the Home Loading Page!", self
         )
 
         button1 = QPushButton("E-Mail", self)
