@@ -1,12 +1,13 @@
 import sys
 import time
+
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (
     QApplication,
-    QProgressBar,
-    QLabel,
     QFrame,
+    QLabel,
+    QProgressBar,
     QVBoxLayout,
     QWidget,
 )
