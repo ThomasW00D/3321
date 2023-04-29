@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
 # Import gmailgui UI note, must have gmailgui in folder
 # from gmailgui import MainGUI
 # Import welcomePage UI, note must have welcomePage in folder
