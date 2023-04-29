@@ -1,6 +1,6 @@
 import sys
 
-from gmail.gmail import gmail
+from gmail import *
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
