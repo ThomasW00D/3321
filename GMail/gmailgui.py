@@ -1,6 +1,6 @@
 import sys
 
-from gmail import *
+from gmail.gmail import gmail
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
@@ -181,7 +181,7 @@ class MainGUI(QMainWindow):
             for attm in attachments:
                 filePaths.append(attm[0])
 
-            if send == True:
+            if send:
                 self.gmail.updateDraft(
                     self.gmail.address,
                     recAddress,
