@@ -10,14 +10,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Configure Super-Linter
+        run: |
+          echo "linter:" >> .github/super-linter.yml
+          echo "  enable:" >> .github/super-linter.yml
+          echo "    - name: pylint" >> .github/super-linter.yml
+          echo "      flags: '-d C0114,C0115,C0116'" >> .github/super-linter.yml
+          echo "python:" >> .github/super-linter.yml
+          echo "  enabled: true" >> .github/super-linter.yml
+
       - name: Run Super-Linter
         uses: github/super-linter@v5
-        with:
-        
-          languages: python
-          
-          linter-rules: "pylint_options: --disable=all --enable=warning,refactor,convention,design"
-          
         env:
           DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
