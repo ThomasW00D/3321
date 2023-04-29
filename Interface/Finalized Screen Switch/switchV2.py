@@ -5,7 +5,7 @@ import welcomePage
 from Client_GUI import Ui_Client
 from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QObject, pyqtSignal, QEventLoop, QTimer
+from PyQt5.QtCore import QEventLoop, QObject, QTimer, pyqtSignal
 from PyQt5.QtWidgets import (
     QApplication,
     QDesktopWidget,
@@ -14,8 +14,8 @@ from PyQt5.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QMainWindow,
-    QPushButton,
     QProgressBar,
+    QPushButton,
     QVBoxLayout,
     QWidget,
 )
@@ -35,7 +35,7 @@ class LoadingPage(QWidget):
     # Method to open Host GUI UI
     def openHost(self):
         self.window = QtWidgets.QWidget()
-        self.ui = Ui_Form()
+        self.ui = Ui_Host()
         self.ui.setupUi(self.window)
         self.window.show()
 
