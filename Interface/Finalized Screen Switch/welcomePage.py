@@ -2,6 +2,7 @@ import sys
 import time
 
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (
     QApplication,
     QFrame,
@@ -10,7 +11,6 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from PyQt5.QtCore import Qt, QTimer
 
 # from host_GUI import Ui_Form
 from switchV2 import LoadingPage
