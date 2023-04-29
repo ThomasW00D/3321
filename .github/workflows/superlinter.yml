@@ -16,7 +16,7 @@ jobs:
         
           languages: python
           
-          pylint_options: --disable=all --enable=warning,refactor,convention,design
+          linter-rules: "pylint_options: --disable=all --enable=warning,refactor,convention,design"
           
         env:
           DEFAULT_BRANCH: main
