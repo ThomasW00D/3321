@@ -1,20 +1,21 @@
 import sys
-
-import welcomePage
-from Client_GUI import Ui_Client
-from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import(
+from PyQt5.QtWidgets import (
     QApplication,
-    QDesktopWidget,
+    QWidget,
+    QVBoxLayout,
     QLabel,
     QPushButton,
-    QVBoxLayout,
-    QWidget,
+    QDesktopWidget,
 )
+
+import welcomePage
+from Host_GUI import Ui_Host
+from Client_GUI import Ui_Client
 
 # Import gmailgui UI note, must have gmailgui in folder
 # from gmailgui import MainGUI
+
 # Import welcomePage UI, note must have welcomePage in folder
 # from welcomePage import SplashScreen
 
@@ -42,6 +43,7 @@ class LoadingPage(QWidget):
     # Method to open Gmail GUI UI
     def openGmail(self):
         self.window = QWidget()
+        # self.ui = MainGUI()
         self.ui.initUI(self.window)
         self.window.show()
 
@@ -51,13 +53,11 @@ class LoadingPage(QWidget):
     # Define the loading page
     def init_ui(self):
         self.setWindowTitle("Loading Page")
-        self.setGeometry(300, 300, 400, 150)
+        self.setGeometry(600, 600, 400, 150)
         self.center()
 
         # Create widgets
-        label = QLabel(
-            "Welcome to the Home Loading Page!", self
-        )
+        label = QLabel("Welcome to the Home Loading Page!", self)
 
         button1 = QPushButton("E-Mail", self)
         button2 = QPushButton("Host Server", self)
@@ -80,11 +80,9 @@ class LoadingPage(QWidget):
     def option1_clicked(self):
         self.openGmail()
 
-    # If user selects Host box, call openWelcome first to show loading screen then call openHost
     def option2_clicked(self):
         self.openHost()
 
-    # If user selects Join Server box, call openWelcome first to show loading screen then call openClient
     def option3_clicked(self):
         self.openClient()
 
@@ -125,7 +123,8 @@ if __name__ == "__main__":
         }
         QProgressBar::chunk {
             border-radius: 10px;
-            background-color: qlineargradient(spread:pad x1:0, x2:1, y1:0.511364, y2:0.523, stop:0 #1C3334, stop:1 #376E6F);
+            background-color: qlineargradient(spread:pad x1:0, x2:1,
+            y1:0.511364, y2:0.523, stop:0 #1C3334, stop:1 #376E6F);
         }
     """
     )
