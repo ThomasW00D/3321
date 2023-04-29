@@ -3,8 +3,6 @@ from __future__ import print_function
 import base64
 import mimetypes
 import os.path
-import sys
-
 from email.mime.application import MIMEApplication
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
@@ -20,6 +18,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
+
 
 class GMail():
     def __init__(self):
@@ -57,7 +56,7 @@ class GMail():
             self.service = build('gmail', 'v1', credentials=creds)
             self.address = self.service.users().getProfile(userId='me').execute()
             self.address = self.address['emailAddress']
-            
+
         except HttpError as error:
             # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
@@ -73,7 +72,8 @@ class GMail():
             # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
 
-    def createEmail(self, sender, to, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None, attachments=None, draft=False):
+    def createEmail(self, sender, to, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None, attachments=None,
+                    draft=False):
         msg = MIMEMultipart('mixed' if attachments else 'alternative')
         msg['To'] = to
         msg['Sender'] = sender
@@ -101,10 +101,10 @@ class GMail():
         encoded_message = base64.urlsafe_b64encode(msg.as_bytes()).decode()
 
         if not draft:
-            return { 'raw' : encoded_message}
+            return {'raw': encoded_message}
         else:
-            return {'message' : {'raw' : encoded_message}}
-    
+            return {'message': {'raw': encoded_message}}
+
     def readyAttachments(self, msg, attachments):
         for path in attachments:
             content_type, encoding = mimetypes.guess_type(path)
@@ -140,12 +140,13 @@ class GMail():
 
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=labels, includeSpamTrash=True, maxResults=10).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=labels, includeSpamTrash=True,
+                                                            maxResults=10).execute()
             messages = response['messages']
 
             for obj in messages:
                 message = self.service.users().messages().get(userId=user_id, id=obj['id']).execute()
-                
+
                 for label in message['labelIds']:
                     if label == 'SENT':
                         self.sent_messages.append(message)
@@ -168,14 +169,15 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.sent_messages, self.draft_messages, self.inbox_messages, self.spam_messages, self.trash_messages
-    
+
     # Function for getting the inbox emails the first time
     # If getting inbox for the second time, call inboxRefresh
     def getInbox(self, user_id='me', label='INBOX'):
         self.inbox_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=30).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True,
+                                                            maxResults=30).execute()
             if response['resultSizeEstimate'] == 0:
                 return self.inbox_messages
 
@@ -190,14 +192,15 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.inbox_messages
-    
+
     # Function for getting the trashed emails the first time
     # If getting trash for the second time, call trashRefresh
     def getTrash(self, user_id='me', label='TRASH'):
         self.trash_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True,
+                                                            maxResults=25).execute()
 
             if response['resultSizeEstimate'] == 0:
                 return self.trash_messages
@@ -213,15 +216,16 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.trash_messages
-    
+
     # Function for getting the draft emails the first time
     # If getting draft for the second time, call draftRefresh
     def getDrafts(self, user_id='me', label='DRAFT'):
         self.draft_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
-            
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True,
+                                                            maxResults=25).execute()
+
             if response['resultSizeEstimate'] == 0:
                 return self.draft_messages
 
@@ -236,14 +240,15 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.draft_messages
-    
+
     # Function for getting the sent emails the first time
     # If getting sent emails for the second time, call sentRefresh
     def getSent(self, user_id='me', label='SENT'):
         self.sent_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True,
+                                                            maxResults=25).execute()
 
             if response['resultSizeEstimate'] == 0:
                 return self.sent_messages
@@ -259,14 +264,15 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.sent_messages
-    
+
     # Function for getting the spam emails the first time
     # If getting spam for the second time, call spamRefresh
     def getSpam(self, user_id='me', label='SPAM'):
         self.spam_messages = []
         try:
             # Call the Gmail API
-            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True, maxResults=25).execute()
+            response = self.service.users().messages().list(userId=user_id, labelIds=[label], includeSpamTrash=True,
+                                                            maxResults=25).execute()
 
             if response['resultSizeEstimate'] == 0:
                 return self.spam_messages
@@ -282,11 +288,11 @@ class GMail():
             print(f'An error occurred: {error}')
 
         return self.spam_messages
-    
+
     def getSubjectAndSender(self, messages):
         ret = []
         for msg in messages:
-            
+
             header = msg['payload']['headers']
             subject = '(No Subject)'
 
@@ -296,12 +302,12 @@ class GMail():
                 elif obj['name'] == 'From':
                     email_from = obj['value']
                     sender = email_from.split('<', 1)[0]
-            
+
             email_str = sender + ':\n' + subject
             ret.append(email_str)
-            
+
         return ret
-    
+
     def getSubjectAndRecipient(self, messages):
         ret = []
         for msg in messages:
@@ -319,7 +325,7 @@ class GMail():
             ret.append(email_str)
 
         return ret
-    
+
     def refreshInbox(self):
         try:
             # Call the Gmail API
@@ -339,7 +345,7 @@ class GMail():
         except HttpError as error:
             # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
-        
+
     def refreshSent(self):
         try:
             # Call the Gmail API
@@ -431,7 +437,7 @@ class GMail():
             return self.spam_messages[index]
         else:
             return self.trash_messages[index]
-        
+
     def evaluateMessageHeader(self, message):
         header = message['payload']['headers']
         subject = '(No Subject)'
@@ -452,50 +458,51 @@ class GMail():
                 else:
                     recipient = 'To: ' + recipient.split('<', 1)[0]
                     recAddress = recipient
-                
+
         return sender, recipient, recAddress, subject
-        
+
     def evaluateMessagePayload(self, payload, user_id, msg_id, attachments='reference'):
         if 'attachmentId' in payload['body']:
             if attachments == 'ignore':
                 return []
-            
+
             attm_id = payload['body']['attachmentId']
             filename = payload['filename']
             if not filename:
                 filename = 'unknown'
 
             obj = {
-                'part_type' : 'attachment',
-                'filetype' : payload['mimeType'],
-                'filename' : filename,
-                'attachment_id' : attm_id,
-                'data' : None
+                'part_type': 'attachment',
+                'filetype': payload['mimeType'],
+                'filename': filename,
+                'attachment_id': attm_id,
+                'data': None
             }
 
             if attachments == 'reference':
                 return [obj]
-            
+
             else:
-                res = self.service.users().messages().attachments().get(userId=user_id, messageId=msg_id, id=attm_id).execute()
+                res = self.service.users().messages().attachments().get(userId=user_id, messageId=msg_id,
+                                                                        id=attm_id).execute()
                 data = res['data']
 
             file_data = base64.urlsafe_b64decode(data)
             obj['data'] = file_data
             return [obj]
-        
+
         elif payload['mimeType'] == 'text/html':
             data = payload['body']['data']
             data = base64.urlsafe_b64decode(data)
             body = BeautifulSoup(data, 'lxml', from_encoding='utf-8').body
-            return [{'part_type' : 'html', 'body' : str(body)}]
-        
+            return [{'part_type': 'html', 'body': str(body)}]
+
         elif payload['mimeType'] == 'text/plain':
             data = payload['body']['data']
             data = base64.urlsafe_b64decode(data)
             body = data.decode('UTF-8')
-            return [{ 'part_type' : 'plain', 'body' : body}]
-        
+            return [{'part_type': 'plain', 'body': body}]
+
         elif payload['mimeType'].startswith('multipart'):
             ret = []
             if 'parts' in payload:
@@ -503,11 +510,12 @@ class GMail():
                     ret.extend(self.evaluateMessagePayload(part, user_id, msg_id, attachments))
 
             return ret
-        
+
         return []
 
     def downloadAttachment(self, attachment, msg_id):
-        res = self.service.users().messages().attachments().get(userId='me', messageId=msg_id, id=attachment['attachment_id']).execute()
+        res = self.service.users().messages().attachments().get(userId='me', messageId=msg_id,
+                                                                id=attachment['attachment_id']).execute()
 
         data = res['data']
         retData = base64.urlsafe_b64decode(data)
@@ -518,8 +526,8 @@ class GMail():
     def changeLabels(self, msg_id, toLabel, fromLabel):
         if toLabel == 'INBOX':
             req = {
-                'addLabelIds' : [toLabel],
-                'removeLabelIds' : [fromLabel]
+                'addLabelIds': [toLabel],
+                'removeLabelIds': [fromLabel]
             }
             try:
                 res = self.service.users().messages().modify(userId='me', id=msg_id, body=req).execute()
@@ -528,8 +536,8 @@ class GMail():
 
         elif toLabel == 'SPAM':
             req = {
-                'addLabelIds' : [toLabel],
-                'removeLabelIds' : [fromLabel]
+                'addLabelIds': [toLabel],
+                'removeLabelIds': [fromLabel]
             }
             try:
                 res = self.service.users().messages().modify(userId='me', id=msg_id, body=req).execute()
@@ -538,8 +546,8 @@ class GMail():
 
         elif toLabel == 'TRASH':
             req = {
-                'addLabelIds' : [toLabel],
-                'removeLabelIds' : [fromLabel]
+                'addLabelIds': [toLabel],
+                'removeLabelIds': [fromLabel]
             }
             try:
                 res = self.service.users().messages().modify(userId='me', id=msg_id, body=req).execute()
@@ -547,7 +555,8 @@ class GMail():
                 print(f'An error occurred: {error}')
 
     def createDraft(self, sender, to, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None, attachments=None):
-        draft = self.createEmail(sender, to, subject, msg_html, msg_plain, cc=cc, bcc=bcc, attachments=attachments, draft=True)
+        draft = self.createEmail(sender, to, subject, msg_html, msg_plain, cc=cc, bcc=bcc, attachments=attachments,
+                                 draft=True)
 
         try:
             # Call the Gmail API
@@ -560,7 +569,7 @@ class GMail():
     def sendDraft(self, draft_id):
         try:
             # Call the Gmail API
-            self.service.users().drafts().send(userId='me', body={'id' : draft_id}).execute()
+            self.service.users().drafts().send(userId='me', body={'id': draft_id}).execute()
 
         except HttpError as error:
             # TODO(developer) - Handle errors from gmail API.
@@ -582,8 +591,10 @@ class GMail():
             # TODO(developer) - Handle errors from gmail API.
             print(f'An error occurred: {error}')
 
-    def updateDraft(self, sender, to, draft_id, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None, attachments=None):
-        draft = self.createEmail(sender, to, subject, msg_html, msg_plain, cc=cc, bcc=bcc, attachments=attachments, draft=True)
+    def updateDraft(self, sender, to, draft_id, subject='', msg_html=None, msg_plain=None, cc=None, bcc=None,
+                    attachments=None):
+        draft = self.createEmail(sender, to, subject, msg_html, msg_plain, cc=cc, bcc=bcc, attachments=attachments,
+                                 draft=True)
 
         try:
             # Call the Gmail API
