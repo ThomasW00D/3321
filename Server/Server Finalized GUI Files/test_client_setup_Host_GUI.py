@@ -1,7 +1,8 @@
 import unittest
+from unittest.mock import patch
+
 from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
-from unittest.mock import patch
 
 
 class TestHost(unittest.TestCase):
@@ -25,8 +26,7 @@ class TestHost(unittest.TestCase):
         self.assertTrue(self.ui.logTxt.isEnabled())
         self.assertTrue(self.ui.sendBtn.isEnabled())
         self.assertIn(
-            f"Nickname set to {Ui_Host.nickname}.\n",
-            self.ui.logTxt.toPlainText()
+            f"Nickname set to {Ui_Host.nickname}.\n", self.ui.logTxt.toPlainText()
         )
         self.assertIn("Client starting.\n", self.ui.logTxt.toPlainText())
 
