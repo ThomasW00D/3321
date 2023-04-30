@@ -93,7 +93,7 @@ class Ui_Client(object):
 
         self.connectBtn.clicked.connect(lambda: self.connect_setup())
         self.nicknameBtn.clicked.connect(lambda: self.nickname_setup())
-        self.sendBtn.clicked.connect(lambda: self.write(Ui_Form.nickname))
+        self.sendBtn.clicked.connect(lambda: self.write(Ui_Client.nickname))
         self.closeBtn.clicked.connect(lambda: self.close_client())
 
     def retranslateUi(self, Form):
@@ -111,18 +111,18 @@ class Ui_Client(object):
 
     def connect_setup(self):
         self.logTxt.setEnabled(True)
-        Ui_Form.host_ip = self.hostTxt.text()
-        Ui_Form.port = self.portTxt.text()
+        Ui_Client.host_ip = self.hostTxt.text()
+        Ui_Client.port = self.portTxt.text()
         while True:
-            if Ui_Form.port.isdigit():
-                if 10000 <= int(Ui_Form.port) <= 65535:
-                    Ui_Form.client_socket = socket.socket(
+            if Ui_Client.port.isdigit():
+                if 10000 <= int(Ui_Client.port) <= 65535:
+                    Ui_Client.client_socket = socket.socket(
                         socket.AF_INET, socket.SOCK_STREAM
                     )
 
                     try:
-                        Ui_Form.client_socket.connect(
-                            (Ui_Form.host_ip, int(Ui_Form.port))
+                        Ui_Client.client_socket.connect(
+                            (Ui_Client.host_ip, int(Ui_Client.port))
                         )
                         break
                     except Exception:
@@ -132,7 +132,7 @@ class Ui_Client(object):
                             "\nIf problem persists, you can try creating a "
                             "server and inviting friends!\n"
                         )
-                        Ui_Form.client_socket.close()
+                        Ui_Client.client_socket.close()
                         return
                 else:
                     self.logTxt.insertPlainText(
@@ -154,8 +154,8 @@ class Ui_Client(object):
         return
 
     def nickname_setup(self):
-        Ui_Form.nickname = self.nicknameTxt.text()
-        if Ui_Form.nickname.isspace() or len(Ui_Form.nickname) == 0:
+        Ui_Client.nickname = self.nicknameTxt.text()
+        if Ui_Client.nickname.isspace() or len(Ui_Client.nickname) == 0:
             self.msgTxt.insertPlainText(
                 "Incorrect nickname. Nickname can't be white space.\n"
             )
@@ -166,22 +166,22 @@ class Ui_Client(object):
             self.msgTxt.setEnabled(True)
             self.sendBtn.setEnabled(True)
             self.closeBtn.setEnabled(True)
-            self.logTxt.insertPlainText(f"Nickname set to {Ui_Form.nickname}.\n")
+            self.logTxt.insertPlainText(f"Nickname set to {Ui_Client.nickname}.\n")
             self.logTxt.insertPlainText("Client starting.\n")
             self.msgTxt.clear()
-            threading.Thread(target=self.client, args=(Ui_Form.nickname,)).start()
+            threading.Thread(target=self.client, args=(Ui_Client.nickname,)).start()
             return
 
     def write(self, nickname):
         message = f"{nickname}: {self.msgTxt.toPlainText()}"
         time.sleep(0.1)
         if message:
-            Ui_Form.client_socket.sendall(message.encode())
+            Ui_Client.client_socket.sendall(message.encode())
             time.sleep(0.1)
             self.msgTxt.clear()
 
     def close_client(self):
-        Ui_Form.client_socket.close()
+        Ui_Client.client_socket.close()
         self.logTxt.clear()
         self.logTxt.setEnabled(False)
         self.msgTxt.setEnabled(False)
@@ -196,9 +196,9 @@ class Ui_Client(object):
         def receive():
             while True:
                 try:
-                    msg = Ui_Form.client_socket.recv(1024).decode("ascii")
+                    msg = Ui_Client.client_socket.recv(1024).decode("ascii")
                     if msg == "NICK":
-                        Ui_Form.client_socket.sendall(nickname.encode("ascii"))
+                        Ui_Client.client_socket.sendall(nickname.encode("ascii"))
                         time.sleep(0.1)
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
@@ -206,7 +206,7 @@ class Ui_Client(object):
                 except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
-                    Ui_Form.client_socket.close()
+                    Ui_Client.client_socket.close()
                     break
 
         receive_thread = threading.Thread(target=receive)
