@@ -1,4 +1,5 @@
 import unittest
+
 from PyQt5.QtWidgets import QApplication, QWidget
 from switchV2 import LoadingPage
 
