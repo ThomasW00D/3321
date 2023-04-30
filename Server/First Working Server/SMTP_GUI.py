@@ -212,8 +212,7 @@ class Ui_MainWindow(object):
             Ui_MainWindow.to = self.toTxt.text()
             Ui_MainWindow.subject = self.subjectTxt.text()
             Ui_MainWindow.emailText = self.messageTxt.toPlainText()
-            msg = f"To: {Ui_MainWindow.to}\nSubject: " \
-              f"{Ui_MainWindow.subject}\n\n{Ui_MainWindow.emailText}"
+            msg = f"To: {Ui_MainWindow.to}\nSubject: {Ui_MainWindow.subject}\n\n{Ui_MainWindow.emailText}"
             server.connect(Ui_MainWindow.host, Ui_MainWindow.port)
             server.sendmail("", "", msg)
             server.quit()
