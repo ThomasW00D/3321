@@ -15,7 +15,7 @@ import time
 from PyQt5 import QtCore, QtWidgets
 
 
-class Ui_Form(object):
+class Ui_Client(object):
     host_ip = ""
     port = ""
     nickname = ""
@@ -136,8 +136,8 @@ class Ui_Form(object):
                         return
                 else:
                     self.logTxt.insertPlainText(
-                    "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
-                )
+                        "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
+                    )
                     return
             else:
                 self.logTxt.insertPlainText(
@@ -216,7 +216,7 @@ class Ui_Form(object):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = Ui_Client()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
