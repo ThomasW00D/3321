@@ -13,9 +13,6 @@ jobs:
 
       - name: Run Super-Linter
         uses: github/super-linter@v5
-        with:
-          no-clone: true
         env:
           DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
