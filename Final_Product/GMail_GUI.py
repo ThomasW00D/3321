@@ -1,6 +1,6 @@
 import sys
 
-import gmail
+import GMail_API
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
@@ -213,7 +213,7 @@ class MainGUI(QMainWindow):
         self.trashButton.setEnabled(True)
 
     def initUI(self, window):
-        self.gmail = gmail.GMailClass()
+        self.gmail = GMail_API.GMailClass()
         self.mainWindow = window
 
         self.currInbox = "INBOX"

@@ -1,9 +1,9 @@
 import sys
 
 import welcomePage
-from Client_GUI import Ui_Client
-from Host_GUI import Ui_Host
-from PyQt5 import QtWidgets
+
+# from Client_GUI import Ui_Client
+# from Host_GUI import Ui_Host
 from PyQt5.QtWidgets import (
     QApplication,
     QDesktopWidget,
@@ -12,9 +12,6 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-
-# Import gmailgui UI note, must have gmailgui in folder
-# from gmailgui import MainGUI
 
 # Import welcomePage UI, note must have welcomePage in folder
 # from welcomePage import SplashScreen
@@ -27,18 +24,24 @@ class LoadingPage(QWidget):
         self.init_ui()
 
     # Method to open Host GUI UI
+    # Commented out because Client GUI and Host GUI are in a
+    # separate folder that we can't get to
     def openHost(self):
+        """
         self.window = QtWidgets.QWidget()
         self.ui = Ui_Host()
         self.ui.setupUi(self.window)
         self.window.show()
+        """
 
     # Method to open Client GUI UI
     def openClient(self):
+        """
         self.window = QtWidgets.QWidget()
         self.ui = Ui_Client()
         self.ui.setupUi(self.window)
         self.window.show()
+        """
 
     # Method to open Gmail GUI UI
     def openGmail(self):

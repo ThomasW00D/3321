@@ -15,8 +15,6 @@ from PyQt5.QtWidgets import (
 # from host_GUI import Ui_Form
 from switchV2 import LoadingPage
 
-# Note still needs to be linked to loadingPage
-
 
 class SplashScreen(QWidget):
     def __init__(self):
