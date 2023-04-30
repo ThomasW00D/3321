@@ -210,7 +210,7 @@ class Ui_Client(object):
                 except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
-                    if Ui.Client.client_socket:
+                    if Ui_Client.client_socket:
                         Ui_Client.client_socket.close()
                     break
 
