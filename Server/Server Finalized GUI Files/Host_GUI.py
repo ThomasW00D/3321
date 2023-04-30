@@ -142,8 +142,10 @@ class Ui_Host(object):
         self.logTxt.setEnabled(False)
         self.serverTxt.setEnabled(False)
         self.nicknameTxt.setEnabled(False)
-        Ui_Host.client_socket.close()
-        Ui_Host.server_socket.close()
+        if Ui_Host.client_socket:
+            Ui_Host.client_socket.close()
+        if Ui_Host.server_socket:
+            Ui_Host.server_socket.close()
         return
 
     def server(self):
@@ -244,7 +246,8 @@ class Ui_Host(object):
                 except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
-                    Ui_Host.client_socket.close()
+                    if Ui_Host.client_socket:
+                        Ui_Host.client_socket.close()
                     break
 
         receive_thread = threading.Thread(target=receive)
