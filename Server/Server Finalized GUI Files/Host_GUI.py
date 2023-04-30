@@ -88,7 +88,7 @@ class Ui_Host(object):
             lambda: threading.Thread(target=self.server).start()
         )
         self.nicknameBtn.clicked.connect(lambda: self.client_setup())
-        self.sendBtn.clicked.connect(lambda: self.write(Ui_Form.nickname))
+        self.sendBtn.clicked.connect(lambda: self.write(Ui_Host.nickname))
         self.closeBtn.clicked.connect(lambda: self.close_host())
 
     def retranslateUi(self, Form):
@@ -103,8 +103,8 @@ class Ui_Host(object):
         self.nicknameBtn.setText(_translate("Form", "Set Nickname"))
 
     def client_setup(self):
-        Ui_Form.nickname = self.nicknameTxt.text()
-        if Ui_Form.nickname.isspace() or len(Ui_Form.nickname) == 0:
+        Ui_Host.nickname = self.nicknameTxt.text()
+        if Ui_Host.nickname.isspace() or len(Ui_Host.nickname) == 0:
             self.msgTxt.insertPlainText(
                 "Incorrect nickname. Nickname can't be white space.\n"
             )
@@ -115,11 +115,11 @@ class Ui_Host(object):
             self.msgTxt.setEnabled(True)
             self.logTxt.setEnabled(True)
             self.sendBtn.setEnabled(True)
-            self.logTxt.insertPlainText(f"Nickname set to {Ui_Form.nickname}.\n")
+            self.logTxt.insertPlainText(f"Nickname set to {Ui_Host.nickname}.\n")
             self.logTxt.insertPlainText("Client starting.\n")
             self.msgTxt.clear()
-            Ui_Form.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            Ui_Form.client_socket.connect((Ui_Form.host_ip, Ui_Form.port))
+            Ui_Host.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            Ui_Host.client_socket.connect((Ui_Host.host_ip, Ui_Host.port))
             threading.Thread(target=self.client, args=(Ui_Form.nickname,)).start()
             return
 
@@ -127,7 +127,7 @@ class Ui_Host(object):
         message = f"(Host) {nickname}: {self.msgTxt.toPlainText()}"
         time.sleep(0.1)
         if message:
-            Ui_Form.client_socket.sendall(message.encode())
+            Ui_Host.client_socket.sendall(message.encode())
             time.sleep(0.1)
             self.msgTxt.clear()
 
@@ -142,26 +142,26 @@ class Ui_Host(object):
         self.logTxt.setEnabled(False)
         self.serverTxt.setEnabled(False)
         self.nicknameTxt.setEnabled(False)
-        Ui_Form.client_socket.close()
-        Ui_Form.server_socket.close()
+        Ui_Host.client_socket.close()
+        Ui_Host.server_socket.close()
         return
 
     def server(self):
         self.serverTxt.setEnabled(True)
         self.createBtn.setEnabled(False)
         self.closeBtn.setEnabled(True)
-        Ui_Form.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        Ui_Form.host_ip = socket.gethostbyname(socket.gethostname())
+        Ui_Host.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        Ui_Host.host_ip = socket.gethostbyname(socket.gethostname())
         time.sleep(0.1)
-        while Ui_Form.server_socket:
+        while Ui_Host.server_socket:
             randint = random.randint(10000, 65535)
-            Ui_Form.port = randint
+            Ui_Host.port = randint
             try:
-                Ui_Form.server_socket.bind((Ui_Form.host_ip, Ui_Form.port))
+                Ui_Host.server_socket.bind((Ui_Host.host_ip, Ui_Host.port))
                 break
             except Exception:
                 self.serverTxt.insertPlainText(
-                    f"Port {Ui_Form.port} was taken. Reattempting.\n"
+                    f"Port {Ui_Host.port} was taken. Reattempting.\n"
                 )
                 time.sleep(0.1)
                 continue
@@ -169,10 +169,10 @@ class Ui_Host(object):
         self.nicknameBtn.setEnabled(True)
         self.nicknameTxt.setEnabled(True)
         self.serverTxt.insertPlainText(
-            f"Host IP: {Ui_Form.host_ip}\nHost Port: {Ui_Form.port}\n"
+            f"Host IP: {Ui_Host.host_ip}\nHost Port: {Ui_Host.port}\n"
         )
         time.sleep(0.1)
-        Ui_Form.server_socket.listen()
+        Ui_Host.server_socket.listen()
 
         clients = []
         nicknames = []
@@ -201,7 +201,7 @@ class Ui_Host(object):
         def receive():
             while True:
                 try:
-                    client, address = Ui_Form.server_socket.accept()
+                    client, address = Ui_Host.server_socket.accept()
                     self.serverTxt.insertPlainText(f"Connected with {str(address)}\n")
                     time.sleep(0.1)
                     client.sendall("NICK".encode("ascii"))
@@ -234,9 +234,9 @@ class Ui_Host(object):
         def receive():
             while True:
                 try:
-                    msg = Ui_Form.client_socket.recv(1024).decode("ascii")
+                    msg = Ui_Host.client_socket.recv(1024).decode("ascii")
                     if msg == "NICK":
-                        Ui_Form.client_socket.sendall(nickname.encode("ascii"))
+                        Ui_Host.client_socket.sendall(nickname.encode("ascii"))
                     else:
                         self.logTxt.insertPlainText(msg + "\n")
                         time.sleep(0.1)
@@ -244,7 +244,7 @@ class Ui_Host(object):
                 except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
-                    Ui_Form.client_socket.close()
+                    Ui_Host.client_socket.close()
                     break
 
         receive_thread = threading.Thread(target=receive)
