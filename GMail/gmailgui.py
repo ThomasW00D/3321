@@ -4,21 +4,21 @@ from gmail import GMail
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
-    QMainWindow,
-    QScrollArea,
+    QApplication,
     QDialog,
-    QWidget,
+    QDialogButtonBox,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
     QListWidget,
     QListWidgetItem,
+    QMainWindow,
     QPushButton,
-    QLabel,
-    QDialogButtonBox,
-    QVBoxLayout,
-    QHBoxLayout,
-    QLineEdit,
-    QFileDialog,
+    QScrollArea,
     QTextEdit,
-    QApplication,
+    QVBoxLayout,
+    QWidget,
 )
 
 
@@ -367,7 +367,6 @@ class NoRecipient(QDialog):
         self.layout.addWidget(message)
         self.layout.addWidget(self.buttonBox)
         self.setLayout(self.layout)
-
 
 
 class SaveDraftDialog(QDialog):
