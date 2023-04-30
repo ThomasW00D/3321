@@ -30,8 +30,10 @@ class TestConnectSetup(unittest.TestCase):
         self.ui.portTxt.setText("12345")
         self.ui.connect_setup()
         self.assertIn(
-            "Host IP number or port number is incorrect. Please recheck your information and try again.\n"
-            "If problem persists, you can try creating a server and inviting friends!\n",
+            "Host IP number or port number is incorrect. "
+            "Please recheck your information and try again.\n"
+            "If problem persists, you can try creating a "
+            "server and inviting friends!\n",
             self.ui.logTxt.toPlainText(),
         )
 
