@@ -181,7 +181,8 @@ class Ui_Client(object):
             self.msgTxt.clear()
 
     def close_client(self):
-        Ui_Client.client_socket.close()
+        if Ui_Client.client_socket:
+            Ui_Client.client_socket.close()
         self.logTxt.clear()
         self.logTxt.setEnabled(False)
         self.msgTxt.setEnabled(False)
@@ -206,7 +207,8 @@ class Ui_Client(object):
                 except Exception:
                     self.logTxt.insertPlainText("Error \n")
                     time.sleep(0.1)
-                    Ui_Client.client_socket.close()
+                    if Ui.Client.client_socket:
+                        Ui_Client.client_socket.close()
                     break
 
         receive_thread = threading.Thread(target=receive)
