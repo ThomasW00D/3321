@@ -1,5 +1,7 @@
 import sys
 
+from Client_GUI import Ui_Client
+from host_GUI import Ui_Form
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (
     QApplication,
@@ -9,12 +11,6 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-
-# Import host_GUI UI note, must have host_GUI in folder
-from host_GUI import Ui_Form
-
-# Import Client_GUI UI note, must have Client_GUI in folder
-from Client_GUI import Ui_Client
 
 
 # LoadingPage UI class
