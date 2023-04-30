@@ -169,8 +169,11 @@ class Ui_Client(object):
             self.logTxt.insertPlainText(f"Nickname set to {Ui_Client.nickname}.\n")
             self.logTxt.insertPlainText("Client starting.\n")
             self.msgTxt.clear()
-            threading.Thread(target=self.client, args=(Ui_Client.nickname,)).start()
+            self.start_thread()
             return
+
+    def start_thread(self):
+        threading.Thread(target=self.client, args=(Ui_Client.nickname,)).start()
 
     def write(self, nickname):
         message = f"{nickname}: {self.msgTxt.toPlainText()}"
