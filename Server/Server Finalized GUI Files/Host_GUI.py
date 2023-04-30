@@ -17,7 +17,7 @@ import time
 from PyQt5 import QtCore, QtWidgets
 
 
-class Ui_Form(object):
+class Ui_Host(object):
     nickname = ""
     host_ip = ""
     port = 0
@@ -254,7 +254,7 @@ class Ui_Form(object):
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = Ui_Host()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
