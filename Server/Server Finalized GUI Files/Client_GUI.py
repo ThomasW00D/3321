@@ -136,13 +136,15 @@ class Ui_Form(object):
                         return
                 else:
                     self.logTxt.insertPlainText(
-                        "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
+                        "Host IP or port is incorrect. "
+                        "Port must be between 10000 and 65535.\n"
                     )
                     return
             else:
                 self.logTxt.insertPlainText(
-                    "Host IP or port is incorrect. Port must be between 10000 and 65535.\n"
-                )
+                        "Host IP or port is incorrect. "
+                        "Port must be between 10000 and 65535.\n"
+                    )
                 return
 
         self.connectBtn.setEnabled(False)
