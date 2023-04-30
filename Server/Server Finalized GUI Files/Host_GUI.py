@@ -120,7 +120,7 @@ class Ui_Host(object):
             self.msgTxt.clear()
             Ui_Host.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             Ui_Host.client_socket.connect((Ui_Host.host_ip, Ui_Host.port))
-            threading.Thread(target=self.client, args=(Ui_Form.nickname,)).start()
+            threading.Thread(target=self.client, args=(Ui_Host.nickname,)).start()
             return
 
     def write(self, nickname):
