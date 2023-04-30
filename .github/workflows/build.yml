@@ -29,5 +29,6 @@ jobs:
         run: |
           python -m unittest discover -s Server
         env:
+          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
