@@ -84,38 +84,6 @@ class GMail:
 
         try:
             # Call the Gmail API
-            self.service = build("gmail", "v1", credentials=creds)
-            self.address = self.service.users().getProfile(userId="me").execute()
-            self.address = self.address["emailAddress"]
-
-        except HttpError as error:
-            # TODO(developer) - Handle errors from gmail API.
-            print(f"An error occurred: {error}")
-
-    def sendEmail(
-        self,
-        sender,
-        to,
-        subject="",
-        msg_html=None,
-        msg_plain=None,
-        cc=None,
-        bcc=None,
-        attachments=None,
-    ):
-        msg = self.createEmail(
-            sender,
-            to,
-            subject,
-            msg_html,
-            msg_plain,
-            cc=cc,
-            bcc=bcc,
-            attachments=attachments,
-        )
-
-        try:
-            # Call the Gmail API
             (self.service.users().messages().send(userId="me", body=msg).execute())
 
         except HttpError as error:
@@ -366,16 +334,6 @@ class GMail:
                     recAddress = recipient
 
         return sender, recipient, recAddress, subject
-
-    def evaluateMessagePayload(self, payload, user_id, msg_id, attachments="reference"):
-        if "attachmentId" in payload["body"]:
-            if attachments == "ignore":
-                return []
-
-            attm_id = payload["body"]["attachmentId"]
-            filename = payload["filename"]
-            if not filename:
-                filename = "unknown"
 
     def evaluateMessagePayload(self, payload, user_id, msg_id, attachments="reference"):
         if "attachmentId" in payload["body"]:
