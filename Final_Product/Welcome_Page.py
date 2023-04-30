@@ -13,7 +13,6 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-
 # Note still needs to be linked to loadingPage
 
 
