@@ -2,8 +2,8 @@ import sys
 
 import Welcome_Page
 from Client_GUI import Ui_Client
-from Host_GUI import Ui_Host
 from GMail_GUI import MainGUI
+from Host_GUI import Ui_Host
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (
     QApplication,

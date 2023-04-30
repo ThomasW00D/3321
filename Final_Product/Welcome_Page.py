@@ -1,6 +1,7 @@
 import sys
 import time
 
+from Main_Login import LoadingPage
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import (
@@ -12,8 +13,6 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-# from host_GUI import Ui_Form
-from Main_Login import LoadingPage
 
 # Note still needs to be linked to loadingPage
 
