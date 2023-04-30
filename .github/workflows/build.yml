@@ -22,6 +22,7 @@ jobs:
           pip install ruff pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install PyQt5
+          pip install pyqt5-tools
       - name: Lint with ruff
         run: |
           # stop the build if there are Python syntax errors or undefined names
