@@ -630,28 +630,25 @@ class GMail:
         if toLabel == "INBOX":
             req = {"addLabelIds": [toLabel], "removeLabelIds": [fromLabel]}
             try:
-                self.service.users()
-                    .messages()
-                    .modify(userId="me", id=msg_id, body=req)
-                    .execute()
+                self.service.users().messages().modify(
+                    userId="me", id=msg_id, body=req
+                ).execute()
             except HttpError as error:
                 print(f"An error occurred: {error}")
         elif toLabel == "SPAM":
             req = {"addLabelIds": [toLabel], "removeLabelIds": [fromLabel]}
             try:
-                self.service.users()
-                    .messages()
-                    .modify(userId="me", id=msg_id, body=req)
-                    .execute()
+                self.service.users().messages().modify(
+                    userId="me", id=msg_id, body=req
+                ).execute()
             except HttpError as error:
                 print(f"An error occurred: {error}")
         elif toLabel == "TRASH":
             req = {"addLabelIds": [toLabel], "removeLabelIds": [fromLabel]}
             try:
-                self.service.users()
-                    .messages()
-                    .modify(userId="me", id=msg_id, body=req)
-                    .execute()
+                self.service.users().messages().modify(
+                    userId="me", id=msg_id, body=req
+                ).execute()
             except HttpError as error:
                 print(f"An error occurred: {error}")
 
