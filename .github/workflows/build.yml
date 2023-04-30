@@ -27,7 +27,7 @@ jobs:
         uses: github/super-linter@v5
       - name: Test with unittest
         run: |
-          python -m unittest discover -s Server
+          python -m unittest discover -s Server/Server\ Finalized\ GUI\ Files
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
