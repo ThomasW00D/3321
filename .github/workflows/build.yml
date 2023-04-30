@@ -31,5 +31,5 @@ jobs:
           ruff --format=github --target-version=py37 .
       - name: Test with unittest
         run: |
-          python -m unittest discover -s Server
+          python -m unittest discover -s Server Finalized GUI Files
           
