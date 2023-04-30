@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import MagicMock, patch
-from PyQt5 import QtWidgets
+
 from Client_GUI import Ui_Client
+from PyQt5 import QtWidgets
 
 
 class TestUiClient(unittest.TestCase):
