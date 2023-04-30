@@ -17,9 +17,7 @@ class TestUiClient(unittest.TestCase):
 
         self.ui.nickname = self.ui.nicknameTxt.text()
 
-        with patch.object(
-            Ui_Client, "start_thread", return_value=None
-        ):
+        with patch.object(Ui_Client, "start_thread", return_value=None):
             self.ui.nickname_setup()
 
         self.assertFalse(self.ui.nicknameTxt.isEnabled())
