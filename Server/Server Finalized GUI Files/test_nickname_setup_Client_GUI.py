@@ -1,7 +1,8 @@
 import unittest
 from unittest.mock import patch
-from PyQt5.QtWidgets import QApplication, QMainWindow
+
 from Client_GUI import Ui_Client
+from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
 class TestUiClient(unittest.TestCase):
@@ -27,8 +28,7 @@ class TestUiClient(unittest.TestCase):
         self.assertTrue(self.ui.sendBtn.isEnabled())
         self.assertTrue(self.ui.closeBtn.isEnabled())
         self.assertIn(
-            f"Nickname set to {self.ui.nickname}.\n",
-            self.ui.logTxt.toPlainText()
+            f"Nickname set to {self.ui.nickname}.\n", self.ui.logTxt.toPlainText()
         )
         self.assertIn("Client starting.\n", self.ui.logTxt.toPlainText())
 
