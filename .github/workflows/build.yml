@@ -28,4 +28,6 @@ jobs:
       - name: Test with unittest
         run: |
           python -m unittest discover -s Server
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
