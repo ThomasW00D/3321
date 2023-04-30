@@ -141,14 +141,16 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         self.loginbtn.clicked.connect(lambda: self.getAccountInfo())
-        self.providerBx.currentIndexChanged.connect(lambda: self.enableMailLines())
+        self.providerBx.currentIndexChanged.\
+            connect(lambda: self.enableMailLines())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.emailLbl.setText(_translate("MainWindow", "Email Address:"))
         self.passwordLbl.setText(_translate("MainWindow", "Password:"))
-        self.providerLbl.setText(_translate("MainWindow", "Email Provider/Server:"))
+        self.providerLbl.\
+            setText(_translate("MainWindow", "Email Provider/Server:"))
         self.providerBx.setItemText(1, _translate("MainWindow", "Server"))
         self.providerBx.setItemText(2, _translate("MainWindow", "Outlook"))
         self.providerBx.setItemText(3, _translate("MainWindow", "Gmail"))
@@ -212,7 +214,8 @@ class Ui_MainWindow(object):
             Ui_MainWindow.to = self.toTxt.text()
             Ui_MainWindow.subject = self.subjectTxt.text()
             Ui_MainWindow.emailText = self.messageTxt.toPlainText()
-            msg = f"To: {Ui_MainWindow.to}\nSubject: {Ui_MainWindow.subject}\n\n{Ui_MainWindow.emailText}"
+            msg = f"To: {Ui_MainWindow.to}\nSubject:" \
+                  f"{Ui_MainWindow.subject}\n\n{Ui_MainWindow.emailText}"
             server.connect(Ui_MainWindow.host, Ui_MainWindow.port)
             server.sendmail("", "", msg)
             server.quit()
