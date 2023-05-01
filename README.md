@@ -19,7 +19,7 @@ Before attempting to use the email client visit the following [quickstart page](
 There you will be directed on how to install everything needed for using the GMail API. <br>
 Once you have your credentials.json file moved to your working directory, you may then login to the email client by clicking on the Email Client buton.<br>
 If it's your first time logging in you'll be directed to your browser where you can then login using your GMail account.<br>
-If you've logged in before, then a token.json file will be automatically generated which allows you to skip this process once you've logged in once. <br>
+If you've logged in before, then a token.json file will be automatically generated which allows you to skip this process once you've logged in once.
 From there, the GMail GUI will appear where you'll be presented with a variety of options to view specific emails, such as Spam or Trash. <br>
 Along with this you'll be able to compose and send emails as well as recieve emails in real time using the refresh button. <br>
 If you select the Host Server option, the Host GUI will open. <br>
