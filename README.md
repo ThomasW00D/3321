@@ -11,10 +11,10 @@ Before installing this project, you must have both Python and PyQt5 installed on
 Once installed, you should see a button to copy the link to this respository. If not, it can be found in the address bar.<br>
 Once you've copied the link, you can clone this repository to your local machine. Finally, open the repository in your code editor or use the command-line to run the main GUI file.
 ## Usage
-Once the Installation steps have been completed, you are now ready to run the Email client. <br>
+Once the Installation steps have been completed, you are now ready to run the email client. <br>
 Within the cloned repository you can launch the project by running the "Main_Login.py" file. <br>
 After running the above file the splash screen will load into the main selection window. <br>
-From the selection window you can direct yourself from the E-mail client, Join Server, or Host Server options. <br>
+From the selection window you can direct yourself from the email client, Join Server, or Host Server options. <br>
 ZACK Explain Here If you select the E-mail option, . <br>
 If you select the Host Server option, the Host GUI will open. <br>
 From here you can create a new server and send messages as the host which will appear in the Message Log. <br>
