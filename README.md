@@ -15,12 +15,12 @@ Once the Installation steps have been completed, you are now ready to run the em
 Within the cloned repository you can launch the project by running the "Main_Login.py" file. <br>
 After running the above file the splash screen will load into the main selection window. <br>
 From the selection window you can direct yourself from the email client, Join Server, or Host Server options. <br>
-Before attempting to use the email client visit the following [quickstart page](https://developers.google.com/gmail/api/quickstart/python). <br>
-There you will be directed on how to install everything needed for using the GMail API. <br>
+Before attempting to use the email client visit the following [quickstart page](https://developers.google.com/gmail/api/quickstart/python).
+There you will be directed on how to install everything needed for using the GMail API. 
 Once you have your credentials.json file moved to your working directory, you may then login to the email client by clicking on the Email Client buton.<br>
-If it's your first time logging in you'll be directed to your browser where you can then login using your GMail account.<br>
+If it's your first time logging in you'll be directed to your browser where you can then login using your GMail account.
 If you've logged in before, then a token.json file will be automatically generated which allows you to skip this process once you've logged in once.
-From there, the GMail GUI will appear where you'll be presented with a variety of options to view specific emails, such as Spam or Trash. <br>
+From there, the GMail GUI will appear where you'll be presented with a variety of options to view specific emails, such as Spam or Trash.
 Along with this you'll be able to compose and send emails as well as recieve emails in real time using the refresh button. <br>
 If you select the Host Server option, the Host GUI will open. <br>
 From here you can create a new server and send messages as the host which will appear in the Message Log. <br>
