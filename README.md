@@ -16,7 +16,7 @@ Within the cloned repository you can launch the project by running the "Main_Log
 After running the above file the splash screen will load into the main selection window. <br>
 From the selection window you can direct yourself from the email client, Join Server, or Host Server options. <br>
 Before attempting to use the email client visit the following [quickstart page](https://developers.google.com/gmail/api/quickstart/python).
-There you will be directed on how to install everything needed for using the GMail API. 
+There you will be directed on how to install everything needed for using the GMail API.
 Once you have your credentials.json file moved to your working directory, you may then login to the email client by clicking on the Email Client buton.<br>
 If it's your first time logging in you'll be directed to your browser where you can then login using your GMail account.
 If you've logged in before, then a token.json file will be automatically generated which allows you to skip this process once you've logged in once.
