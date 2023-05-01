@@ -1,12 +1,10 @@
-import pytest
 import json
+
 import gmail
+from gmail import GMailClass
+from typing import Optional
 
-from googleapiclient.discovery import build
-from googleapiclient.http import HttpMock
-
-
-gmail = gmail.GMailClass(True)
+gmail: Optional[GMailClass] = gmail.GMailClass(True)
 
 with open("3321/mock-email-list.json") as data_file:
     emailList = []
