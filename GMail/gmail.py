@@ -3,6 +3,7 @@ from __future__ import print_function
 import base64
 import mimetypes
 import os.path
+import json
 from email.mime.application import MIMEApplication
 from email.mime.audio import MIMEAudio
 from email.mime.base import MIMEBase
@@ -16,15 +17,21 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import HttpMock
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.modify"]
 
 
 class GMailClass:
-    def __init__(self):
+    def __init__(self, mock=False):
         """Shows basic usage of the Gmail API.
         Lists the user's Gmail labels.
         """
+
+        if mock:
+            http = HttpMock("3321/mock-email-list.json", {"status": "200"})
+            self.service = build("gmail", "v1", http=http)
+            return
 
         self.inbox_messages = []
         self.trash_messages = []
@@ -56,6 +63,14 @@ class GMailClass:
             self.service = build("gmail", "v1", credentials=creds)
             self.address = self.service.users().getProfile(userId="me").execute()
             self.address = self.address["emailAddress"]
+
+            with open("3321/mock-email.json", "w") as data_file:
+                json.dump(self.getEmails()[0], data_file)
+
+            with open("3321/mock-email-list.json", "w") as data_file:
+                response = self.service.users().messages().list(userId="me").execute()
+                json.dump(response, data_file)
+
         except HttpError as error:
             # TODO(developer) - Handle errors from gmail API.
             print(f"An error occurred: {error}")
