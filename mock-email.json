@@ -10,11 +10,7 @@
         "headers": [
             {
                 "name": "Received",
-                "value": "from 252598817745 named unknown by gmailapi.google.com with HTTPREST; Sun, 30 Apr 2023 13:50:18 -0500",
-            },
-            {
-                "name": "Content-Type",
-                "value": 'multipart/alternative; boundary="===============6794916663753873355=="',
+                "value": "from 252598817745 named unknown by gmailapi.google.com with HTTPREST; Sun, 30 Apr 2023 13:50:18 -0500"
             },
             {"name": "MIME-Version", "value": "1.0"},
             {"name": "To", "value": "fakeaddress@gmail.com"},
@@ -23,9 +19,9 @@
             {"name": "Date", "value": "Sun, 30 Apr 2023 13:50:18 -0500"},
             {
                 "name": "Message-Id",
-                "value": "<CAFDS=+yzi+5QS_eto3eN3X5fV+FyYp3cNVXF_=CEQ1TrjaW6Ug@mail.gmail.com>",
+                "value": "<CAFDS=+yzi+5QS_eto3eN3X5fV+FyYp3cNVXF_=CEQ1TrjaW6Ug@mail.gmail.com>"
             },
-            {"name": "From", "value": "fakeaddress@gmail.com"},
+            {"name": "From", "value": "fakeaddress@gmail.com"}
         ],
         "body": {"size": 0},
         "parts": [
@@ -33,11 +29,11 @@
                 "partId": "0",
                 "mimeType": "text/plain",
                 "filename": "",
-                "body": {"size": 0, "data": ""},
+                "body": {"size": 0, "data": ""}
             }
-        ],
+        ]
     },
     "sizeEstimate": 550,
     "historyId": "3167",
-    "internalDate": "1682880618000",
+    "internalDate": "1682880618000"
 }
