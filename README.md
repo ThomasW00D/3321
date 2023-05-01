@@ -15,7 +15,7 @@ Once the Installation steps have been completed, you are now ready to run the em
 Within the cloned repository you can launch the project by running the "Main_Login.py" file. <br>
 After running the above file the splash screen will load into the main selection window. <br>
 From the selection window you can direct yourself from the email client, Join Server, or Host Server options. <br>
-ZACK Explain Here If you select the E-mail option, . <br>
+ZACK Explain Here If you select the email option, . <br>
 If you select the Host Server option, the Host GUI will open. <br>
 From here you can create a new server and send messages as the host which will appear in the Message Log. <br>
 In the Server Log box you can find the Host Ip as well as Host Port, which can be used to connect to the created server with the Join Server option. <br>
