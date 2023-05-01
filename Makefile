@@ -22,6 +22,10 @@ install: requirements.txt
 build: setup.py
 	python3 setup.py build bdist_wheel
 
+.PHONY: test
+test: requirements.txt
+	pytest GMail/gmailtests.py
+
 clean:
 	rm -rf build
 	rm -rf dist

@@ -29,7 +29,7 @@ class GMailClass:
         """
 
         if mock:
-            http = HttpMock("3321/mock-email-list.json", {"status": "200"})
+            http = HttpMock("mock-email-list.json", {"status": "200"})
             self.service = build("gmail", "v1", http=http)
             return
 
@@ -64,10 +64,10 @@ class GMailClass:
             self.address = self.service.users().getProfile(userId="me").execute()
             self.address = self.address["emailAddress"]
 
-            with open("3321/mock-email.json", "w") as data_file:
+            with open("mock-email.json", "w") as data_file:
                 json.dump(self.getEmails()[0], data_file)
 
-            with open("3321/mock-email-list.json", "w") as data_file:
+            with open("mock-email-list.json", "w") as data_file:
                 response = self.service.users().messages().list(userId="me").execute()
                 json.dump(response, data_file)
 

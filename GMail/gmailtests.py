@@ -6,11 +6,11 @@ from gmail import GMailClass
 
 build: Optional[GMailClass] = gmail.GMailClass(True)
 
-with open("3321/mock-email-list.json") as data_file:
+with open("mock-email-list.json") as data_file:
     emailList = []
     emailList = json.load(data_file)
 
-with open("3321/mock-email.json") as data_file:
+with open("mock-email.json") as data_file:
     email1 = json.load(data_file)
 
 
