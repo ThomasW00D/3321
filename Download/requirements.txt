@@ -1,0 +1,1 @@
+setuptools wheel PyQt5 PyQt5-tools --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib PyQtWebEngine google
